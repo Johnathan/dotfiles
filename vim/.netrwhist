@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/Users/johnathanb/Dropbox/Sites/media_centre'
+let g:netrw_dirhist_2='/Users/johnathanb/Dropbox/Sites/WeeExceptionMate'
+let g:netrw_dirhist_3='/Users/johnathanb/Dropbox/Sites/WeeExceptionMate/public'
+let g:netrw_dirhist_4='/Users/johnathanb/Dropbox/Sites/WeeExceptionMate'
