@@ -27,6 +27,7 @@ set foldenable
 set hlsearch
 set ruler
 set timeoutlen=500
+set showcmd
 
 " GUI Stuff
 if has( "gui_running" )
@@ -47,6 +48,9 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+" Switch Buffer
+:nnoremap <leader>; :buffers<CR>:buffer<Space>
 
 " Gets rid of whitespace at end of line
 autocmd BufWritePre * :%s/\s\+$//e

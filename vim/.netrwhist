@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_cnt =8
 let g:netrw_dirhist_1='/Users/johnathanb/Dropbox/htdocs/CraftyDevil/survitec_rebuild'
 let g:netrw_dirhist_2='/Users/johnathanb/Downloads/flegs'
 let g:netrw_dirhist_3='/Users/johnathanb/Dropbox/htdocs/CraftyDevil/survitec_rebuild'
@@ -7,3 +7,4 @@ let g:netrw_dirhist_4='/Users/johnathanb/Dropbox/htdocs/CraftyDevil/teamkitpro'
 let g:netrw_dirhist_5='/Users/johnathanb/Dropbox/htdocs/CraftyDevil/survitec_rebuild'
 let g:netrw_dirhist_6='/Users/johnathanb/Dropbox/htdocs/CraftyDevil/teamkitpro'
 let g:netrw_dirhist_7='/Users/johnathanb/Dropbox/htdocs/CraftyDevil/survitec_rebuild'
+let g:netrw_dirhist_8='/Users/johnathanb/Dropbox/htdocs/CraftyDevil/teamkitpro'
