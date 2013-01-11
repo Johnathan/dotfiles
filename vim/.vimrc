@@ -10,8 +10,6 @@ let mapleader = ','
 
 " File Search Stuff
 noremap <leader>p <Esc>:CommandT<CR>
-noremap <leader>O <Esc>:CommandTFlush<CR>
-noremap <leader>m <Esc>:CommandTBuffer<CR>
 
 colorscheme Tomorrow-Night
 set number
