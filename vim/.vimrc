@@ -35,6 +35,12 @@ endif
 
 nmap <space> :
 
+" Move 5 at a time
+nmap H 5h
+nmap J 5j
+nmap K 5k
+nmap L 5l
+
 " Tag BarToggle
 nmap tt :TagbarToggle<cr>
 
