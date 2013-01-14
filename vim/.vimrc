@@ -2,6 +2,13 @@
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+" Unbind the cursor keys in insert, normal and visual modes.
+for prefix in ['i', 'n', 'v']
+  for key in ['<Up>', '<Down>', '<Left>', '<Right>']
+      exe prefix . "noremap " . key . " <Nop>"
+  endfor
+endfor
+
 syntax on
 filetype on
 filetype plugin on
@@ -34,6 +41,12 @@ if has( "gui_running" )
 endif
 
 nmap <space> :
+
+" Move 5 at a time
+nmap H 5h
+nmap J 5j
+nmap K 5k
+nmap L 5l
 
 " Tag BarToggle
 nmap tt :TagbarToggle<cr>
