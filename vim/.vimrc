@@ -2,13 +2,6 @@
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-" Unbind the cursor keys in insert, normal and visual modes.
-for prefix in ['i', 'n', 'v']
-  for key in ['<Up>', '<Down>', '<Left>', '<Right>']
-      exe prefix . "noremap " . key . " <Nop>"
-  endfor
-endfor
-
 syntax on
 filetype on
 filetype plugin on
@@ -55,6 +48,7 @@ nmap tt :TagbarToggle<cr>
 nmap ntt :NERDTreeToggle<cr>
 nmap nhl :nohlsearch<cr>
 
+" Ctrl + [hjkl] to switch between panes
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
