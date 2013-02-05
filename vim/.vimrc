@@ -9,7 +9,7 @@ filetype plugin on
 let mapleader = ','
 
 " File Search Stuff
-noremap <leader>p <Esc>:CommandTFlush<CR>:CommandT<CR>
+noremap <leader>p <Esc>:CommandT<CR>
 
 colorscheme Tomorrow-Night
 set number
