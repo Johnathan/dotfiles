@@ -33,6 +33,8 @@ if has( "gui_running" )
 	set transparency=5
 endif
 
+set clipboard=unnamed
+
 nmap <space> :
 
 " Move 5 at a time
