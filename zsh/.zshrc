@@ -1,3 +1,5 @@
+TERM=screen-256color
+
 # Path to your oh-my-zsh configuration.
 export ZSH=$HOME/.oh-my-zsh
 setopt AUTO_CD
@@ -33,7 +35,6 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ✔%{$reset_color%}"
 export EDITOR=vim
 
 alias gs="git status -s"
-
 alias ev="vim ~/.zshrc"
 
 mkcd()

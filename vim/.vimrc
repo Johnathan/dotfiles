@@ -12,6 +12,8 @@ let mapleader = ','
 noremap <leader>p <Esc>:CommandTFlush<CR>:CommandT<CR>
 
 colorscheme Tomorrow-Night
+set t_Co=256
+hi Search ctermfg=Green ctermbg=NONE cterm=bold,underline
 set number
 set tabstop=4
 set shiftwidth=4
