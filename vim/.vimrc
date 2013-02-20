@@ -17,7 +17,7 @@ hi Search ctermfg=Green ctermbg=NONE cterm=bold,underline
 set number
 set tabstop=4
 set shiftwidth=4
-set guifont=monaco:h13
+set guifont=Source\ Code\ Pro:h15
 set linespace=5
 set smartindent
 set autoindent
