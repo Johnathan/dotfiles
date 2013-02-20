@@ -14,13 +14,13 @@ let mapleader = ','
 " File Search Stuff
 noremap <leader>p <Esc>:CommandT<CR>
 
-colorscheme Tomorrow-Night
+colorscheme Tomorrow-Night-Eighties
 set t_Co=256
 hi Search ctermfg=Green ctermbg=NONE cterm=bold,underline
 set number
 set tabstop=4
 set shiftwidth=4
-set guifont=monaco:h13
+set guifont=Source\ Code\ Pro:h15
 set linespace=5
 set smartindent
 set autoindent
@@ -35,7 +35,6 @@ set showcmd
 " GUI Stuff
 if has( "gui_running" )
     set guioptions=egmrt
-	set transparency=5
 endif
 
 set clipboard=unnamed
