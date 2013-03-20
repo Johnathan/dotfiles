@@ -36,6 +36,7 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ✔%{$reset_color%}"
 # Export $EDITOR
 export EDITOR=vim
 
+alias clit="git"
 alias gs="git status -s"
 alias ev="vim ~/.zshrc"
 
@@ -79,4 +80,5 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 export NODE_PATH="/usr/local/lib/node"
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/share/npm/bin:$PATH"
+export PATH=/Applications/MAMP/bin/php/php5.3.6/bin:$PATH
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc

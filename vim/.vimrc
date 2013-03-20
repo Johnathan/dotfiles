@@ -17,17 +17,20 @@ hi Search ctermfg=Green ctermbg=NONE cterm=bold,underline
 set number
 set tabstop=4
 set shiftwidth=4
-set guifont=Source\ Code\ Pro:h15
+set guifont=Source\ Code\ Pro:h14
 set linespace=5
 set smartindent
 set autoindent
 set wildmode=list:longest
 set splitbelow
 set foldenable
+set foldmethod=syntax
+set foldcolumn=1
 set hlsearch
 set ruler
 set timeoutlen=500
 set showcmd
+set mouse=a
 
 " GUI Stuff
 if has( "gui_running" )
