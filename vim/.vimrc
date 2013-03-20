@@ -6,6 +6,9 @@ syntax on
 filetype on
 filetype plugin on
 
+au BufNewFile,BufRead *.less set filetype=less
+au BufNewFile,BufRead *.coffee set filetype=coffee
+
 let mapleader = ','
 
 " File Search Stuff

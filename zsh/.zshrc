@@ -62,6 +62,7 @@ function mdtouch() {
 
 # Laravel Generator Aliases
 alias g:c="php artisan generate:controller"
+alias g:r="php artisan generate:resource"
 alias g:m="php artisan generate:model"
 alias g:v="php artisan generate:view"
 alias g:mig="php artisan generate:migration"
