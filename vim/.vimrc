@@ -27,7 +27,7 @@ set autoindent
 set wildmode=list:longest
 set splitbelow
 set foldenable
-set foldmethod=syntax
+" set foldmethod=syntax
 set foldcolumn=1
 set hlsearch
 set ruler
@@ -52,6 +52,10 @@ nmap L 5l
 
 " Tag BarToggle
 nmap tt :TagbarToggle<cr>
+
+" Numbers
+nnoremap <F3> :NumbersToggle<CR>
+nnoremap <F4> :NumbersOnOff<CR>
 
 " NERDTree
 nmap ntt :NERDTreeToggle<cr>
