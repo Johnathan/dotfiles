@@ -1,3 +1,5 @@
+DISABLE_AUTO_UPDATE="true"
+
 TERM=screen-256color
 
 # Path to your oh-my-zsh configuration.
