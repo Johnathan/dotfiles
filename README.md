@@ -3,6 +3,8 @@ There's a few dependencies such as having ruby, python and brew installed on you
 
 `brew install zsh`
 
+`brew install ctags-exuberant`
+
 `curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh`
 
 `brew install tmux`
