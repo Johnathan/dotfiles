@@ -36,6 +36,7 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ✔%{$reset_color%}"
 # Export $EDITOR
 export EDITOR=vim
 
+alias yolo='sudo'
 alias gs="git status -s"
 alias ev="vim ~/.zshrc"
 
@@ -59,6 +60,11 @@ function mdtouch() {
 	touch $1
 }
 
+function server()
+{
+	python -m SimpleHTTPServer
+}
+
 # Laravel Generator Aliases
 alias g:c="php artisan generate:controller"
 alias g:r="php artisan generate:resource"
@@ -80,4 +86,5 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 export NODE_PATH="/usr/local/lib/node"
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/share/npm/bin:$PATH"
+export PATH=/usr/local/php5/bin:$PATH
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
