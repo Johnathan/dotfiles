@@ -1,3 +1,5 @@
+DISABLE_AUTO_UPDATE="true"
+
 TERM=screen-256color
 
 # Path to your oh-my-zsh configuration.
@@ -37,6 +39,7 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ✔%{$reset_color%}"
 export EDITOR=vim
 
 alias yolo='sudo'
+alias clit="git"
 alias gs="git status -s"
 alias ev="vim ~/.zshrc"
 
@@ -86,5 +89,5 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 export NODE_PATH="/usr/local/lib/node"
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/share/npm/bin:$PATH"
-export PATH=/usr/local/php5/bin:$PATH
+export PATH=/Applications/MAMP/bin/php/php5.4.10/bin:$PATH
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
