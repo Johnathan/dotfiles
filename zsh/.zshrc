@@ -38,6 +38,7 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ✔%{$reset_color%}"
 # Export $EDITOR
 export EDITOR=vim
 
+alias yolo='sudo'
 alias clit="git"
 alias gs="git status -s"
 alias ev="vim ~/.zshrc"
@@ -61,6 +62,11 @@ check_php_syntax()
 function mdtouch() {
 	if [ ! -d `dirname $1` ]; then mkdir -p `dirname $1`; fi
 	touch $1
+}
+
+function server()
+{
+	python -m SimpleHTTPServer
 }
 
 # Laravel Generator Aliases
