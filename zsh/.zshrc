@@ -41,6 +41,7 @@ export EDITOR=vim
 alias clit="git"
 alias gs="git status -s"
 alias ev="vim ~/.zshrc"
+alias v="mvim ."
 
 mkcd()
 {

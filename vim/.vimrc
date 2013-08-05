@@ -14,12 +14,22 @@ let mapleader = ','
 " File Search Stuff
 noremap <leader>p <Esc>:CommandT<CR>
 
-colorscheme Tomorrow-Night-Eighties
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+
+colorscheme Tomorrow
+" colorscheme Tomorrow-Night-Eighties
 set t_Co=256
 hi Search ctermfg=Green ctermbg=NONE cterm=bold,underline
 set number
 set tabstop=4
 set shiftwidth=4
+"set tabstop=2
+"set shiftwidth=2
+set expandtab
 set guifont=Source\ Code\ Pro:h14
 set linespace=5
 set smartindent
@@ -68,7 +78,7 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Switch Buffer
-:nnoremap <leader>; :buffers<CR>:buffer<Space>
+noremap <leader>; <Esc>:CommandTBuffer<CR>
 
 " Gets rid of whitespace at end of line
 autocmd BufWritePre * :%s/\s\+$//e
