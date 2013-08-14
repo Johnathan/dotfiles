@@ -80,6 +80,9 @@ alias g:t="php artisan generate:test"
 alias g:r="php artisan generate:resource"
 alias artisan="php artisan"
 
+# z
+source /usr/local/etc/profile.d/z.sh
+
 export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
 # Customize to your needs...

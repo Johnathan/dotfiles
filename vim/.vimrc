@@ -20,8 +20,7 @@ else
     set background=dark
 endif
 
-colorscheme Tomorrow
-" colorscheme Tomorrow-Night-Eighties
+colorscheme Tomorrow-Night-Eighties
 set t_Co=256
 hi Search ctermfg=Green ctermbg=NONE cterm=bold,underline
 set number
