@@ -1,0 +1,243 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tblgen - Target Description To C++ Code Generator &mdash; LLVM 3.2 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/llvm-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="LLVM 3.2 documentation" href="../index.html" />
+    <link rel="up" title="LLVM Command Guide" href="index.html" />
+    <link rel="next" title="lit - LLVM Integrated Tester" href="lit.html" />
+    <link rel="prev" title="FileCheck - Flexible pattern matching file verifier" href="FileCheck.html" />
+<style type="text/css">
+  table.right { float: right; margin-left: 20px; }
+  table.right td { border: 1px solid #ccc; }
+</style>
+
+  </head>
+  <body>
+<div class="logo">
+  <a href="../index.html">
+    <img src="../_static/logo.png"
+         alt="LLVM Logo" width="250" height="88"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="lit.html" title="lit - LLVM Integrated Tester"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="FileCheck.html" title="FileCheck - Flexible pattern matching file verifier"
+             accesskey="P">previous</a> |</li>
+  <li><a href="http://llvm.org/">LLVM Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="../index.html">Documentation</a>&raquo;</li>
+
+          <li><a href="../userguides.html" >User Guides</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">LLVM Command Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">tblgen - Target Description To C++ Code Generator</a><ul>
+<li><a class="reference internal" href="#synopsis">SYNOPSIS</a></li>
+<li><a class="reference internal" href="#description">DESCRIPTION</a></li>
+<li><a class="reference internal" href="#options">OPTIONS</a></li>
+<li><a class="reference internal" href="#exit-status">EXIT STATUS</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="FileCheck.html"
+                        title="previous chapter">FileCheck - Flexible pattern matching file verifier</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="lit.html"
+                        title="next chapter">lit - LLVM Integrated Tester</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/CommandGuide/tblgen.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tblgen-target-description-to-c-code-generator">
+<h1>tblgen - Target Description To C++ Code Generator<a class="headerlink" href="#tblgen-target-description-to-c-code-generator" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>SYNOPSIS<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<p><strong>tblgen</strong> [<em>options</em>] [<em>filename</em>]</p>
+</div>
+<div class="section" id="description">
+<h2>DESCRIPTION<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p><strong>tblgen</strong> translates from target description (.td) files into C++ code that can
+be included in the definition of an LLVM target library. Most users of LLVM will
+not need to use this program. It is only for assisting with writing an LLVM
+target backend.</p>
+<p>The input and output of <strong>tblgen</strong> is beyond the scope of this short
+introduction. Please see the <em>CodeGeneration</em> page in the LLVM documentation.</p>
+<p>The <em>filename</em> argument specifies the name of a Target Description (.td) file
+to read as input.</p>
+</div>
+<div class="section" id="options">
+<h2>OPTIONS<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<p><strong>-help</strong></p>
+<blockquote>
+<div>Print a summary of command line options.</div></blockquote>
+<p><strong>-o</strong> <em>filename</em></p>
+<blockquote>
+<div>Specify the output file name.  If <em>filename</em> is <tt class="docutils literal"><span class="pre">-</span></tt>, then <strong>tblgen</strong>
+sends its output to standard output.</div></blockquote>
+<p><strong>-I</strong> <em>directory</em></p>
+<blockquote>
+<div>Specify where to find other target description files for inclusion. The
+<em>directory</em> value should be a full or partial path to a directory that contains
+target description files.</div></blockquote>
+<p><strong>-asmparsernum</strong> <em>N</em></p>
+<blockquote>
+<div>Make -gen-asm-parser emit assembly writer number <em>N</em>.</div></blockquote>
+<p><strong>-asmwriternum</strong> <em>N</em></p>
+<blockquote>
+<div>Make -gen-asm-writer emit assembly writer number <em>N</em>.</div></blockquote>
+<p><strong>-class</strong> <em>class Name</em></p>
+<blockquote>
+<div>Print the enumeration list for this class.</div></blockquote>
+<p><strong>-print-records</strong></p>
+<blockquote>
+<div>Print all records to standard output (default).</div></blockquote>
+<p><strong>-print-enums</strong></p>
+<blockquote>
+<div>Print enumeration values for a class</div></blockquote>
+<p><strong>-print-sets</strong></p>
+<blockquote>
+<div>Print expanded sets for testing DAG exprs.</div></blockquote>
+<p><strong>-gen-emitter</strong></p>
+<blockquote>
+<div>Generate machine code emitter.</div></blockquote>
+<p><strong>-gen-register-info</strong></p>
+<blockquote>
+<div>Generate registers and register classes info.</div></blockquote>
+<p><strong>-gen-instr-info</strong></p>
+<blockquote>
+<div>Generate instruction descriptions.</div></blockquote>
+<p><strong>-gen-asm-writer</strong></p>
+<blockquote>
+<div>Generate the assembly writer.</div></blockquote>
+<p><strong>-gen-disassembler</strong></p>
+<blockquote>
+<div>Generate disassembler.</div></blockquote>
+<p><strong>-gen-pseudo-lowering</strong></p>
+<blockquote>
+<div>Generate pseudo instruction lowering.</div></blockquote>
+<p><strong>-gen-dag-isel</strong></p>
+<blockquote>
+<div>Generate a DAG (Directed Acycle Graph) instruction selector.</div></blockquote>
+<p><strong>-gen-asm-matcher</strong></p>
+<blockquote>
+<div>Generate assembly instruction matcher.</div></blockquote>
+<p><strong>-gen-dfa-packetizer</strong></p>
+<blockquote>
+<div>Generate DFA Packetizer for VLIW targets.</div></blockquote>
+<p><strong>-gen-fast-isel</strong></p>
+<blockquote>
+<div>Generate a &#8220;fast&#8221; instruction selector.</div></blockquote>
+<p><strong>-gen-subtarget</strong></p>
+<blockquote>
+<div>Generate subtarget enumerations.</div></blockquote>
+<p><strong>-gen-intrinsic</strong></p>
+<blockquote>
+<div>Generate intrinsic information.</div></blockquote>
+<p><strong>-gen-tgt-intrinsic</strong></p>
+<blockquote>
+<div>Generate target intrinsic information.</div></blockquote>
+<p><strong>-gen-enhanced-disassembly-info</strong></p>
+<blockquote>
+<div>Generate enhanced disassembly info.</div></blockquote>
+<p><strong>-version</strong></p>
+<blockquote>
+<div>Show the version number of this program.</div></blockquote>
+</div>
+<div class="section" id="exit-status">
+<h2>EXIT STATUS<a class="headerlink" href="#exit-status" title="Permalink to this headline">¶</a></h2>
+<p>If <strong>tblgen</strong> succeeds, it will exit with 0.  Otherwise, if an error
+occurs, it will exit with a non-zero value.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="lit.html" title="lit - LLVM Integrated Tester"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="FileCheck.html" title="FileCheck - Flexible pattern matching file verifier"
+             >previous</a> |</li>
+  <li><a href="http://llvm.org/">LLVM Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="../index.html">Documentation</a>&raquo;</li>
+
+          <li><a href="../userguides.html" >User Guides</a> &raquo;</li>
+          <li><a href="index.html" >LLVM Command Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, LLVM Project.
+      Last updated on 2012-12-21.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,236 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Subsystem Documentation &mdash; LLVM 3.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/llvm-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="LLVM 3.2 documentation" href="index.html" />
+    <link rel="next" title="LLVM Alias Analysis Infrastructure" href="AliasAnalysis.html" />
+    <link rel="prev" title="How to set up LLVM-style RTTI for your class hierarchy" href="HowToSetUpLLVMStyleRTTI.html" />
+<style type="text/css">
+  table.right { float: right; margin-left: 20px; }
+  table.right td { border: 1px solid #ccc; }
+</style>
+
+  </head>
+  <body>
+<div class="logo">
+  <a href="index.html">
+    <img src="_static/logo.png"
+         alt="LLVM Logo" width="250" height="88"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="AliasAnalysis.html" title="LLVM Alias Analysis Infrastructure"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="HowToSetUpLLVMStyleRTTI.html" title="How to set up LLVM-style RTTI for your class hierarchy"
+             accesskey="P">previous</a> |</li>
+  <li><a href="http://llvm.org/">LLVM Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="index.html">Documentation</a>&raquo;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="HowToSetUpLLVMStyleRTTI.html"
+                        title="previous chapter">How to set up LLVM-style RTTI for your class hierarchy</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="AliasAnalysis.html"
+                        title="next chapter">LLVM Alias Analysis Infrastructure</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/subsystems.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="subsystem-documentation">
+<span id="subsystems"></span><h1>Subsystem Documentation<a class="headerlink" href="#subsystem-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<ul>
+<li><p class="first"><a class="reference external" href="WritingAnLLVMPass.html">Writing an LLVM Pass</a></p>
+<blockquote>
+<div><p>Information on how to write LLVM transformations and analyses.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference external" href="WritingAnLLVMBackend.html">Writing an LLVM Backend</a></p>
+<blockquote>
+<div><p>Information on how to write LLVM backends for machine targets.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="CodeGenerator.html#code-generator"><em>The LLVM Target-Independent Code Generator</em></a></p>
+<blockquote>
+<div><p>The design and implementation of the LLVM code generator.  Useful if you are
+working on retargetting LLVM to a new architecture, designing a new codegen
+pass, or enhancing existing components.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="TableGenFundamentals.html#tablegen"><em>TableGen Fundamentals</em></a></p>
+<blockquote>
+<div><p>Describes the TableGen tool, which is used heavily by the LLVM code
+generator.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="AliasAnalysis.html#alias-analysis"><em>LLVM Alias Analysis Infrastructure</em></a></p>
+<blockquote>
+<div><p>Information on how to write a new alias analysis implementation or how to
+use existing analyses.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference external" href="GarbageCollection.html">Accurate Garbage Collection with LLVM</a></p>
+<blockquote>
+<div><p>The interfaces source-language compilers should use for compiling GC&#8217;d
+programs.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference external" href="SourceLevelDebugging.html">Source Level Debugging with LLVM</a></p>
+<blockquote>
+<div><p>This document describes the design and philosophy behind the LLVM
+source-level debugger.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="ExceptionHandling.html#exception-handling"><em>Exception Handling in LLVM</em></a></p>
+<blockquote>
+<div><p>This document describes the design and implementation of exception handling
+in LLVM.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="Bugpoint.html#bugpoint"><em>LLVM bugpoint tool: design and usage</em></a></p>
+<blockquote>
+<div><p>Automatic bug finder and test-case reducer description and usage
+information.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="BitCodeFormat.html#bitcode-format"><em>LLVM Bitcode File Format</em></a></p>
+<blockquote>
+<div><p>This describes the file format and encoding used for LLVM &#8220;bc&#8221; files.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference external" href="SystemLibrary.html">System Library</a></p>
+<blockquote>
+<div><p>This document describes the LLVM System Library (&lt;tt&gt;lib/System&lt;/tt&gt;) and
+how to keep LLVM source code portable</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="LinkTimeOptimization.html#lto"><em>LLVM Link Time Optimization: Design and Implementation</em></a></p>
+<blockquote>
+<div><p>This document describes the interface between LLVM intermodular optimizer
+and the linker and its design</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="GoldPlugin.html#gold-plugin"><em>The LLVM gold plugin</em></a></p>
+<blockquote>
+<div><p>How to build your programs with link-time optimization on Linux.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="DebuggingJITedCode.html#debugging-jited-code"><em>Debugging JIT-ed Code With GDB</em></a></p>
+<blockquote>
+<div><p>How to debug JITed code with GDB.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="BranchWeightMetadata.html#branch-weight"><em>LLVM Branch Weight Metadata</em></a></p>
+<blockquote>
+<div><p>Provides information about Branch Prediction Information.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference internal" href="SegmentedStacks.html#segmented-stacks"><em>Segmented Stacks in LLVM</em></a></p>
+<blockquote>
+<div><p>This document describes segmented stacks and how they are used in LLVM.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.embecosm.com/download/ean10.html">Howto: Implementing LLVM Integrated Assembler</a></p>
+<blockquote>
+<div><p>A simple guide for how to implement an LLVM integrated assembler for an
+architecture.</p>
+</div></blockquote>
+</li>
+</ul>
+<ul>
+<li><p class="first"><a class="reference internal" href="MarkedUpDisassembly.html#marked-up-disassembly"><em>LLVM&#8217;s Optional Rich Disassembly Output</em></a></p>
+<blockquote>
+<div><p>This document describes the optional rich disassembly output syntax.</p>
+</div></blockquote>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="AliasAnalysis.html" title="LLVM Alias Analysis Infrastructure"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="HowToSetUpLLVMStyleRTTI.html" title="How to set up LLVM-style RTTI for your class hierarchy"
+             >previous</a> |</li>
+  <li><a href="http://llvm.org/">LLVM Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="index.html">Documentation</a>&raquo;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, LLVM Project.
+      Last updated on 2012-12-21.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
