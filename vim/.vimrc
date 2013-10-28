@@ -26,8 +26,9 @@ hi Search ctermfg=Green ctermbg=NONE cterm=bold,underline
 set number
 set tabstop=4
 set shiftwidth=4
-"set tabstop=2
-"set shiftwidth=2
+set smartcase
+set tabstop=2
+set shiftwidth=2
 set expandtab
 set guifont=Source\ Code\ Pro:h14
 set linespace=5
