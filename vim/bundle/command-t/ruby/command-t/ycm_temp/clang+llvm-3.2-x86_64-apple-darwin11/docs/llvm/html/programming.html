@@ -1,0 +1,167 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Programming Documentation &mdash; LLVM 3.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/llvm-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="LLVM 3.2 documentation" href="index.html" />
+    <link rel="next" title="LLVM Atomic Instructions and Concurrency Guide" href="Atomics.html" />
+    <link rel="prev" title="Code Reviews with Phabricator" href="Phabricator.html" />
+<style type="text/css">
+  table.right { float: right; margin-left: 20px; }
+  table.right td { border: 1px solid #ccc; }
+</style>
+
+  </head>
+  <body>
+<div class="logo">
+  <a href="index.html">
+    <img src="_static/logo.png"
+         alt="LLVM Logo" width="250" height="88"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Atomics.html" title="LLVM Atomic Instructions and Concurrency Guide"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Phabricator.html" title="Code Reviews with Phabricator"
+             accesskey="P">previous</a> |</li>
+  <li><a href="http://llvm.org/">LLVM Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="index.html">Documentation</a>&raquo;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Phabricator.html"
+                        title="previous chapter">Code Reviews with Phabricator</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Atomics.html"
+                        title="next chapter">LLVM Atomic Instructions and Concurrency Guide</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/programming.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="programming-documentation">
+<span id="programming"></span><h1>Programming Documentation<a class="headerlink" href="#programming-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<ul>
+<li><p class="first"><a class="reference external" href="LangRef.html">LLVM Language Reference Manual</a></p>
+<p>Defines the LLVM intermediate representation and the assembly form of the
+different nodes.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="Atomics.html#atomics"><em>LLVM Atomic Instructions and Concurrency Guide</em></a></p>
+<p>Information about LLVM&#8217;s concurrency model.</p>
+</li>
+<li><p class="first"><a class="reference external" href="ProgrammersManual.html">The LLVM Programmers Manual</a></p>
+<p>Introduction to the general layout of the LLVM sourcebase, important classes
+and APIs, and some tips &amp; tricks.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="CommandLine.html#commandline"><em>CommandLine 2.0 Library Manual</em></a></p>
+<p>Provides information on using the command line parsing library.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="CodingStandards.html#coding-standards"><em>LLVM Coding Standards</em></a></p>
+<p>Details the LLVM coding standards and provides useful information on writing
+efficient C++ code.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="HowToSetUpLLVMStyleRTTI.html"><em>How to set up LLVM-style RTTI for your class hierarchy</em></a></p>
+<p>How to make <tt class="docutils literal"><span class="pre">isa&lt;&gt;</span></tt>, <tt class="docutils literal"><span class="pre">dyn_cast&lt;&gt;</span></tt>, etc. available for clients of your
+class hierarchy.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="ExtendingLLVM.html#extending-llvm"><em>Extending LLVM: Adding instructions, intrinsics, types, etc.</em></a></p>
+<p>Look here to see how to add instructions and intrinsics to LLVM.</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://llvm.org/doxygen/">Doxygen generated documentation</a></p>
+<p>(<a class="reference external" href="http://llvm.org/doxygen/inherits.html">classes</a>)
+(<a class="reference external" href="http://llvm.org/doxygen/doxygen.tar.gz">tarball</a>)</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://llvm.org/viewvc/">ViewVC Repository Browser</a></p>
+</li>
+<li><p class="first"><a class="reference internal" href="CompilerWriterInfo.html#compiler-writer-info"><em>Architecture &amp; Platform Information for Compiler Writers</em></a></p>
+<p>A list of helpful links for compiler writers.</p>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Atomics.html" title="LLVM Atomic Instructions and Concurrency Guide"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Phabricator.html" title="Code Reviews with Phabricator"
+             >previous</a> |</li>
+  <li><a href="http://llvm.org/">LLVM Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="index.html">Documentation</a>&raquo;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, LLVM Project.
+      Last updated on 2012-12-21.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

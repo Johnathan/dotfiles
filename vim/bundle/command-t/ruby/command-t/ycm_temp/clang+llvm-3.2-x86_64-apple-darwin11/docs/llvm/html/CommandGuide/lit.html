@@ -1,0 +1,475 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>lit - LLVM Integrated Tester &mdash; LLVM 3.2 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/llvm-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="LLVM 3.2 documentation" href="../index.html" />
+    <link rel="up" title="LLVM Command Guide" href="index.html" />
+    <link rel="next" title="llvm-build - LLVM Project Build Utility" href="llvm-build.html" />
+    <link rel="prev" title="tblgen - Target Description To C++ Code Generator" href="tblgen.html" />
+<style type="text/css">
+  table.right { float: right; margin-left: 20px; }
+  table.right td { border: 1px solid #ccc; }
+</style>
+
+  </head>
+  <body>
+<div class="logo">
+  <a href="../index.html">
+    <img src="../_static/logo.png"
+         alt="LLVM Logo" width="250" height="88"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="llvm-build.html" title="llvm-build - LLVM Project Build Utility"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tblgen.html" title="tblgen - Target Description To C++ Code Generator"
+             accesskey="P">previous</a> |</li>
+  <li><a href="http://llvm.org/">LLVM Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="../index.html">Documentation</a>&raquo;</li>
+
+          <li><a href="../userguides.html" >User Guides</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">LLVM Command Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">lit - LLVM Integrated Tester</a><ul>
+<li><a class="reference internal" href="#synopsis">SYNOPSIS</a></li>
+<li><a class="reference internal" href="#description">DESCRIPTION</a></li>
+<li><a class="reference internal" href="#general-options">GENERAL OPTIONS</a></li>
+<li><a class="reference internal" href="#output-options">OUTPUT OPTIONS</a></li>
+<li><a class="reference internal" href="#execution-options">EXECUTION OPTIONS</a></li>
+<li><a class="reference internal" href="#selection-options">SELECTION OPTIONS</a></li>
+<li><a class="reference internal" href="#additional-options">ADDITIONAL OPTIONS</a></li>
+<li><a class="reference internal" href="#exit-status">EXIT STATUS</a></li>
+<li><a class="reference internal" href="#test-discovery">TEST DISCOVERY</a></li>
+<li><a class="reference internal" href="#test-status-results">TEST STATUS RESULTS</a></li>
+<li><a class="reference internal" href="#lit-infrastructure">LIT INFRASTRUCTURE</a><ul>
+<li><a class="reference internal" href="#test-suites">TEST SUITES</a></li>
+<li><a class="reference internal" href="#id1">TEST DISCOVERY</a></li>
+<li><a class="reference internal" href="#local-configuration-files">LOCAL CONFIGURATION FILES</a></li>
+<li><a class="reference internal" href="#test-run-output-format">TEST RUN OUTPUT FORMAT</a></li>
+<li><a class="reference internal" href="#lit-example-tests">LIT EXAMPLE TESTS</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">SEE ALSO</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tblgen.html"
+                        title="previous chapter">tblgen - Target Description To C++ Code Generator</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="llvm-build.html"
+                        title="next chapter">llvm-build - LLVM Project Build Utility</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/CommandGuide/lit.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="lit-llvm-integrated-tester">
+<h1>lit - LLVM Integrated Tester<a class="headerlink" href="#lit-llvm-integrated-tester" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>SYNOPSIS<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<p><strong>lit</strong> [<em>options</em>] [<em>tests</em>]</p>
+</div>
+<div class="section" id="description">
+<h2>DESCRIPTION<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p><strong>lit</strong> is a portable tool for executing LLVM and Clang style test suites,
+summarizing their results, and providing indication of failures. <strong>lit</strong> is
+designed to be a lightweight testing tool with as simple a user interface as
+possible.</p>
+<p><strong>lit</strong> should be run with one or more <em>tests</em> to run specified on the command
+line. Tests can be either individual test files or directories to search for
+tests (see &#8220;TEST DISCOVERY&#8221;).</p>
+<p>Each specified test will be executed (potentially in parallel) and once all
+tests have been run <strong>lit</strong> will print summary information on the number of tests
+which passed or failed (see &#8220;TEST STATUS RESULTS&#8221;). The <strong>lit</strong> program will
+execute with a non-zero exit code if any tests fail.</p>
+<p>By default <strong>lit</strong> will use a succinct progress display and will only print
+summary information for test failures. See &#8220;OUTPUT OPTIONS&#8221; for options
+controlling the <strong>lit</strong> progress display and output.</p>
+<p><strong>lit</strong> also includes a number of options for controlling how tests are executed
+(specific features may depend on the particular test format). See &#8220;EXECUTION
+OPTIONS&#8221; for more information.</p>
+<p>Finally, <strong>lit</strong> also supports additional options for only running a subset of
+the options specified on the command line, see &#8220;SELECTION OPTIONS&#8221; for
+more information.</p>
+<p>Users interested in the <strong>lit</strong> architecture or designing a <strong>lit</strong> testing
+implementation should see &#8220;LIT INFRASTRUCTURE&#8221;</p>
+</div>
+<div class="section" id="general-options">
+<h2>GENERAL OPTIONS<a class="headerlink" href="#general-options" title="Permalink to this headline">¶</a></h2>
+<p><strong>-h</strong>, <strong>&#8211;help</strong></p>
+<blockquote>
+<div>Show the <strong>lit</strong> help message.</div></blockquote>
+<p><strong>-j</strong> <em>N</em>, <strong>&#8211;threads</strong>=<em>N</em></p>
+<blockquote>
+<div>Run <em>N</em> tests in parallel. By default, this is automatically chosen to match
+the number of detected available CPUs.</div></blockquote>
+<p><strong>&#8211;config-prefix</strong>=<em>NAME</em></p>
+<blockquote>
+<div>Search for <em>NAME.cfg</em> and <em>NAME.site.cfg</em> when searching for test suites,
+instead of <em>lit.cfg</em> and <em>lit.site.cfg</em>.</div></blockquote>
+<p><strong>&#8211;param</strong> <em>NAME</em>, <strong>&#8211;param</strong> <em>NAME</em>=<em>VALUE</em></p>
+<blockquote>
+<div>Add a user defined parameter <em>NAME</em> with the given <em>VALUE</em> (or the empty
+string if not given). The meaning and use of these parameters is test suite
+dependent.</div></blockquote>
+</div>
+<div class="section" id="output-options">
+<h2>OUTPUT OPTIONS<a class="headerlink" href="#output-options" title="Permalink to this headline">¶</a></h2>
+<p><strong>-q</strong>, <strong>&#8211;quiet</strong></p>
+<blockquote>
+<div>Suppress any output except for test failures.</div></blockquote>
+<p><strong>-s</strong>, <strong>&#8211;succinct</strong></p>
+<blockquote>
+<div>Show less output, for example don&#8217;t show information on tests that pass.</div></blockquote>
+<p><strong>-v</strong>, <strong>&#8211;verbose</strong></p>
+<blockquote>
+<div>Show more information on test failures, for example the entire test output
+instead of just the test result.</div></blockquote>
+<p><strong>&#8211;no-progress-bar</strong></p>
+<blockquote>
+<div>Do not use curses based progress bar.</div></blockquote>
+</div>
+<div class="section" id="execution-options">
+<h2>EXECUTION OPTIONS<a class="headerlink" href="#execution-options" title="Permalink to this headline">¶</a></h2>
+<p><strong>&#8211;path</strong>=<em>PATH</em></p>
+<blockquote>
+<div>Specify an addition <em>PATH</em> to use when searching for executables in tests.</div></blockquote>
+<p><strong>&#8211;vg</strong></p>
+<blockquote>
+<div><p>Run individual tests under valgrind (using the memcheck tool). The
+<em>&#8211;error-exitcode</em> argument for valgrind is used so that valgrind failures will
+cause the program to exit with a non-zero status.</p>
+<p>When this option is enabled, <strong>lit</strong> will also automatically provide a
+&#8220;valgrind&#8221; feature that can be used to conditionally disable (or expect failure
+in) certain tests.</p>
+</div></blockquote>
+<p><strong>&#8211;vg-arg</strong>=<em>ARG</em></p>
+<blockquote>
+<div>When <em>&#8211;vg</em> is used, specify an additional argument to pass to valgrind itself.</div></blockquote>
+<p><strong>&#8211;vg-leak</strong></p>
+<blockquote>
+<div>When <em>&#8211;vg</em> is used, enable memory leak checks. When this option is enabled,
+<strong>lit</strong> will also automatically provide a &#8220;vg_leak&#8221; feature that can be
+used to conditionally disable (or expect failure in) certain tests.</div></blockquote>
+<p><strong>&#8211;time-tests</strong></p>
+<blockquote>
+<div>Track the wall time individual tests take to execute and includes the results in
+the summary output. This is useful for determining which tests in a test suite
+take the most time to execute. Note that this option is most useful with <em>-j
+1</em>.</div></blockquote>
+</div>
+<div class="section" id="selection-options">
+<h2>SELECTION OPTIONS<a class="headerlink" href="#selection-options" title="Permalink to this headline">¶</a></h2>
+<p><strong>&#8211;max-tests</strong>=<em>N</em></p>
+<blockquote>
+<div>Run at most <em>N</em> tests and then terminate.</div></blockquote>
+<p><strong>&#8211;max-time</strong>=<em>N</em></p>
+<blockquote>
+<div>Spend at most <em>N</em> seconds (approximately) running tests and then terminate.</div></blockquote>
+<p><strong>&#8211;shuffle</strong></p>
+<blockquote>
+<div>Run the tests in a random order.</div></blockquote>
+</div>
+<div class="section" id="additional-options">
+<h2>ADDITIONAL OPTIONS<a class="headerlink" href="#additional-options" title="Permalink to this headline">¶</a></h2>
+<p><strong>&#8211;debug</strong></p>
+<blockquote>
+<div>Run <strong>lit</strong> in debug mode, for debugging configuration issues and <strong>lit</strong> itself.</div></blockquote>
+<p><strong>&#8211;show-suites</strong></p>
+<blockquote>
+<div>List the discovered test suites as part of the standard output.</div></blockquote>
+<p><strong>&#8211;no-tcl-as-sh</strong></p>
+<blockquote>
+<div>Run Tcl scripts internally (instead of converting to shell scripts).</div></blockquote>
+<p><strong>&#8211;repeat</strong>=<em>N</em></p>
+<blockquote>
+<div>Run each test <em>N</em> times. Currently this is primarily useful for timing tests,
+other results are not collated in any reasonable fashion.</div></blockquote>
+</div>
+<div class="section" id="exit-status">
+<h2>EXIT STATUS<a class="headerlink" href="#exit-status" title="Permalink to this headline">¶</a></h2>
+<p><strong>lit</strong> will exit with an exit code of 1 if there are any FAIL or XPASS
+results. Otherwise, it will exit with the status 0. Other exit codes are used
+for non-test related failures (for example a user error or an internal program
+error).</p>
+</div>
+<div class="section" id="test-discovery">
+<h2>TEST DISCOVERY<a class="headerlink" href="#test-discovery" title="Permalink to this headline">¶</a></h2>
+<p>The inputs passed to <strong>lit</strong> can be either individual tests, or entire
+directories or hierarchies of tests to run. When <strong>lit</strong> starts up, the first
+thing it does is convert the inputs into a complete list of tests to run as part
+of <em>test discovery</em>.</p>
+<p>In the <strong>lit</strong> model, every test must exist inside some <em>test suite</em>. <strong>lit</strong>
+resolves the inputs specified on the command line to test suites by searching
+upwards from the input path until it finds a <em>lit.cfg</em> or <em>lit.site.cfg</em>
+file. These files serve as both a marker of test suites and as configuration
+files which <strong>lit</strong> loads in order to understand how to find and run the tests
+inside the test suite.</p>
+<p>Once <strong>lit</strong> has mapped the inputs into test suites it traverses the list of
+inputs adding tests for individual files and recursively searching for tests in
+directories.</p>
+<p>This behavior makes it easy to specify a subset of tests to run, while still
+allowing the test suite configuration to control exactly how tests are
+interpreted. In addition, <strong>lit</strong> always identifies tests by the test suite they
+are in, and their relative path inside the test suite. For appropriately
+configured projects, this allows <strong>lit</strong> to provide convenient and flexible
+support for out-of-tree builds.</p>
+</div>
+<div class="section" id="test-status-results">
+<h2>TEST STATUS RESULTS<a class="headerlink" href="#test-status-results" title="Permalink to this headline">¶</a></h2>
+<p>Each test ultimately produces one of the following six results:</p>
+<p><strong>PASS</strong></p>
+<blockquote>
+<div>The test succeeded.</div></blockquote>
+<p><strong>XFAIL</strong></p>
+<blockquote>
+<div>The test failed, but that is expected. This is used for test formats which allow
+specifying that a test does not currently work, but wish to leave it in the test
+suite.</div></blockquote>
+<p><strong>XPASS</strong></p>
+<blockquote>
+<div>The test succeeded, but it was expected to fail. This is used for tests which
+were specified as expected to fail, but are now succeeding (generally because
+the feature they test was broken and has been fixed).</div></blockquote>
+<p><strong>FAIL</strong></p>
+<blockquote>
+<div>The test failed.</div></blockquote>
+<p><strong>UNRESOLVED</strong></p>
+<blockquote>
+<div>The test result could not be determined. For example, this occurs when the test
+could not be run, the test itself is invalid, or the test was interrupted.</div></blockquote>
+<p><strong>UNSUPPORTED</strong></p>
+<blockquote>
+<div>The test is not supported in this environment. This is used by test formats
+which can report unsupported tests.</div></blockquote>
+<p>Depending on the test format tests may produce additional information about
+their status (generally only for failures). See the Output|&#8221;OUTPUT OPTIONS&#8221;
+section for more information.</p>
+</div>
+<div class="section" id="lit-infrastructure">
+<h2>LIT INFRASTRUCTURE<a class="headerlink" href="#lit-infrastructure" title="Permalink to this headline">¶</a></h2>
+<p>This section describes the <strong>lit</strong> testing architecture for users interested in
+creating a new <strong>lit</strong> testing implementation, or extending an existing one.</p>
+<p><strong>lit</strong> proper is primarily an infrastructure for discovering and running
+arbitrary tests, and to expose a single convenient interface to these
+tests. <strong>lit</strong> itself doesn&#8217;t know how to run tests, rather this logic is
+defined by <em>test suites</em>.</p>
+<div class="section" id="test-suites">
+<h3>TEST SUITES<a class="headerlink" href="#test-suites" title="Permalink to this headline">¶</a></h3>
+<p>As described in &#8220;TEST DISCOVERY&#8221;, tests are always located inside a <em>test
+suite</em>. Test suites serve to define the format of the tests they contain, the
+logic for finding those tests, and any additional information to run the tests.</p>
+<p><strong>lit</strong> identifies test suites as directories containing <em>lit.cfg</em> or
+<em>lit.site.cfg</em> files (see also <strong>&#8211;config-prefix</strong>). Test suites are initially
+discovered by recursively searching up the directory hierarchy for all the input
+files passed on the command line. You can use <strong>&#8211;show-suites</strong> to display the
+discovered test suites at startup.</p>
+<p>Once a test suite is discovered, its config file is loaded. Config files
+themselves are Python modules which will be executed. When the config file is
+executed, two important global variables are predefined:</p>
+<p><strong>lit</strong></p>
+<blockquote>
+<div>The global <strong>lit</strong> configuration object (a <em>LitConfig</em> instance), which defines
+the builtin test formats, global configuration parameters, and other helper
+routines for implementing test configurations.</div></blockquote>
+<p><strong>config</strong></p>
+<blockquote>
+<div><p>This is the config object (a <em>TestingConfig</em> instance) for the test suite,
+which the config file is expected to populate. The following variables are also
+available on the <em>config</em> object, some of which must be set by the config and
+others are optional or predefined:</p>
+<p><strong>name</strong> <em>[required]</em> The name of the test suite, for use in reports and
+diagnostics.</p>
+<p><strong>test_format</strong> <em>[required]</em> The test format object which will be used to
+discover and run tests in the test suite. Generally this will be a builtin test
+format available from the <em>lit.formats</em> module.</p>
+<p><strong>test_src_root</strong> The filesystem path to the test suite root. For out-of-dir
+builds this is the directory that will be scanned for tests.</p>
+<p><strong>test_exec_root</strong> For out-of-dir builds, the path to the test suite root inside
+the object directory. This is where tests will be run and temporary output files
+placed.</p>
+<p><strong>environment</strong> A dictionary representing the environment to use when executing
+tests in the suite.</p>
+<p><strong>suffixes</strong> For <strong>lit</strong> test formats which scan directories for tests, this
+variable is a list of suffixes to identify test files. Used by: <em>ShTest</em>,
+<em>TclTest</em>.</p>
+<p><strong>substitutions</strong> For <strong>lit</strong> test formats which substitute variables into a test
+script, the list of substitutions to perform. Used by: <em>ShTest</em>, <em>TclTest</em>.</p>
+<p><strong>unsupported</strong> Mark an unsupported directory, all tests within it will be
+reported as unsupported. Used by: <em>ShTest</em>, <em>TclTest</em>.</p>
+<p><strong>parent</strong> The parent configuration, this is the config object for the directory
+containing the test suite, or None.</p>
+<p><strong>root</strong> The root configuration. This is the top-most <strong>lit</strong> configuration in
+the project.</p>
+<p><strong>on_clone</strong> The config is actually cloned for every subdirectory inside a test
+suite, to allow local configuration on a per-directory basis. The <em>on_clone</em>
+variable can be set to a Python function which will be called whenever a
+configuration is cloned (for a subdirectory). The function should takes three
+arguments: (1) the parent configuration, (2) the new configuration (which the
+<em>on_clone</em> function will generally modify), and (3) the test path to the new
+directory being scanned.</p>
+</div></blockquote>
+</div>
+<div class="section" id="id1">
+<h3>TEST DISCOVERY<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Once test suites are located, <strong>lit</strong> recursively traverses the source directory
+(following <em>test_src_root</em>) looking for tests. When <strong>lit</strong> enters a
+sub-directory, it first checks to see if a nested test suite is defined in that
+directory. If so, it loads that test suite recursively, otherwise it
+instantiates a local test config for the directory (see &#8220;LOCAL CONFIGURATION
+FILES&#8221;).</p>
+<p>Tests are identified by the test suite they are contained within, and the
+relative path inside that suite. Note that the relative path may not refer to an
+actual file on disk; some test formats (such as <em>GoogleTest</em>) define &#8220;virtual
+tests&#8221; which have a path that contains both the path to the actual test file and
+a subpath to identify the virtual test.</p>
+</div>
+<div class="section" id="local-configuration-files">
+<h3>LOCAL CONFIGURATION FILES<a class="headerlink" href="#local-configuration-files" title="Permalink to this headline">¶</a></h3>
+<p>When <strong>lit</strong> loads a subdirectory in a test suite, it instantiates a local test
+configuration by cloning the configuration for the parent direction &#8211; the root
+of this configuration chain will always be a test suite. Once the test
+configuration is cloned <strong>lit</strong> checks for a <em>lit.local.cfg</em> file in the
+subdirectory. If present, this file will be loaded and can be used to specialize
+the configuration for each individual directory. This facility can be used to
+define subdirectories of optional tests, or to change other configuration
+parameters &#8211; for example, to change the test format, or the suffixes which
+identify test files.</p>
+</div>
+<div class="section" id="test-run-output-format">
+<h3>TEST RUN OUTPUT FORMAT<a class="headerlink" href="#test-run-output-format" title="Permalink to this headline">¶</a></h3>
+<p>The b&lt;lit&gt; output for a test run conforms to the following schema, in both short
+and verbose modes (although in short mode no PASS lines will be shown). This
+schema has been chosen to be relatively easy to reliably parse by a machine (for
+example in buildbot log scraping), and for other tools to generate.</p>
+<p>Each test result is expected to appear on a line that matches:</p>
+<p>&lt;result code&gt;: &lt;test name&gt; (&lt;progress info&gt;)</p>
+<p>where &lt;result-code&gt; is a standard test result such as PASS, FAIL, XFAIL, XPASS,
+UNRESOLVED, or UNSUPPORTED. The performance result codes of IMPROVED and
+REGRESSED are also allowed.</p>
+<p>The &lt;test name&gt; field can consist of an arbitrary string containing no newline.</p>
+<p>The &lt;progress info&gt; field can be used to report progress information such as
+(1/300) or can be empty, but even when empty the parentheses are required.</p>
+<p>Each test result may include additional (multiline) log information in the
+following format.</p>
+<p>&lt;log delineator&gt; TEST &#8216;(&lt;test name&gt;)&#8217; &lt;trailing delineator&gt;
+... log message ...
+&lt;log delineator&gt;</p>
+<p>where &lt;test name&gt; should be the name of a preceding reported test, &lt;log
+delineator&gt; is a string of &#8216;*&#8217; characters <em>at least</em> four characters long (the
+recommended length is 20), and &lt;trailing delineator&gt; is an arbitrary (unparsed)
+string.</p>
+<p>The following is an example of a test run output which consists of four tests A,
+B, C, and D, and a log message for the failing test C:</p>
+<div class="highlight-python"><pre>PASS: A (1 of 4)
+PASS: B (2 of 4)
+FAIL: C (3 of 4)
+\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\* TEST 'C' FAILED \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+Test 'C' failed as a result of exit code 1.
+\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+PASS: D (4 of 4)</pre>
+</div>
+</div>
+<div class="section" id="lit-example-tests">
+<h3>LIT EXAMPLE TESTS<a class="headerlink" href="#lit-example-tests" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>lit</strong> distribution contains several example implementations of test suites
+in the <em>ExampleTests</em> directory.</p>
+</div>
+</div>
+<div class="section" id="see-also">
+<h2>SEE ALSO<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<p>valgrind(1)</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="llvm-build.html" title="llvm-build - LLVM Project Build Utility"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tblgen.html" title="tblgen - Target Description To C++ Code Generator"
+             >previous</a> |</li>
+  <li><a href="http://llvm.org/">LLVM Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="../index.html">Documentation</a>&raquo;</li>
+
+          <li><a href="../userguides.html" >User Guides</a> &raquo;</li>
+          <li><a href="index.html" >LLVM Command Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, LLVM Project.
+      Last updated on 2012-12-21.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

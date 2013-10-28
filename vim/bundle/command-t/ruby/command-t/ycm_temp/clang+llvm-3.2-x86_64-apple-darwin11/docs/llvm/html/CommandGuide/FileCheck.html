@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>FileCheck - Flexible pattern matching file verifier &mdash; LLVM 3.2 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/llvm-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="LLVM 3.2 documentation" href="../index.html" />
+    <link rel="up" title="LLVM Command Guide" href="index.html" />
+    <link rel="next" title="tblgen - Target Description To C++ Code Generator" href="tblgen.html" />
+    <link rel="prev" title="llvm-bcanalyzer - LLVM bitcode analyzer" href="llvm-bcanalyzer.html" />
+<style type="text/css">
+  table.right { float: right; margin-left: 20px; }
+  table.right td { border: 1px solid #ccc; }
+</style>
+
+  </head>
+  <body>
+<div class="logo">
+  <a href="../index.html">
+    <img src="../_static/logo.png"
+         alt="LLVM Logo" width="250" height="88"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tblgen.html" title="tblgen - Target Description To C++ Code Generator"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="llvm-bcanalyzer.html" title="llvm-bcanalyzer - LLVM bitcode analyzer"
+             accesskey="P">previous</a> |</li>
+  <li><a href="http://llvm.org/">LLVM Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="../index.html">Documentation</a>&raquo;</li>
+
+          <li><a href="../userguides.html" >User Guides</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">LLVM Command Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">FileCheck - Flexible pattern matching file verifier</a><ul>
+<li><a class="reference internal" href="#synopsis">SYNOPSIS</a></li>
+<li><a class="reference internal" href="#description">DESCRIPTION</a></li>
+<li><a class="reference internal" href="#options">OPTIONS</a></li>
+<li><a class="reference internal" href="#exit-status">EXIT STATUS</a></li>
+<li><a class="reference internal" href="#tutorial">TUTORIAL</a><ul>
+<li><a class="reference internal" href="#the-filecheck-check-prefix-option">The FileCheck -check-prefix option</a></li>
+<li><a class="reference internal" href="#the-check-next-directive">The &#8220;CHECK-NEXT:&#8221; directive</a></li>
+<li><a class="reference internal" href="#the-check-not-directive">The &#8220;CHECK-NOT:&#8221; directive</a></li>
+<li><a class="reference internal" href="#filecheck-pattern-matching-syntax">FileCheck Pattern Matching Syntax</a></li>
+<li><a class="reference internal" href="#filecheck-variables">FileCheck Variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="llvm-bcanalyzer.html"
+                        title="previous chapter">llvm-bcanalyzer - LLVM bitcode analyzer</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tblgen.html"
+                        title="next chapter">tblgen - Target Description To C++ Code Generator</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/CommandGuide/FileCheck.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="filecheck-flexible-pattern-matching-file-verifier">
+<h1>FileCheck - Flexible pattern matching file verifier<a class="headerlink" href="#filecheck-flexible-pattern-matching-file-verifier" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>SYNOPSIS<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<p><strong>FileCheck</strong> <em>match-filename</em> [<em>&#8211;check-prefix=XXX</em>] [<em>&#8211;strict-whitespace</em>]</p>
+</div>
+<div class="section" id="description">
+<h2>DESCRIPTION<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p><strong>FileCheck</strong> reads two files (one from standard input, and one specified on the
+command line) and uses one to verify the other.  This behavior is particularly
+useful for the testsuite, which wants to verify that the output of some tool
+(e.g. llc) contains the expected information (for example, a movsd from esp or
+whatever is interesting).  This is similar to using grep, but it is optimized
+for matching multiple different inputs in one file in a specific order.</p>
+<p>The <em>match-filename</em> file specifies the file that contains the patterns to
+match.  The file to verify is always read from standard input.</p>
+</div>
+<div class="section" id="options">
+<h2>OPTIONS<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<p><strong>-help</strong></p>
+<blockquote>
+<div>Print a summary of command line options.</div></blockquote>
+<p><strong>&#8211;check-prefix</strong> <em>prefix</em></p>
+<blockquote>
+<div>FileCheck searches the contents of <em>match-filename</em> for patterns to match.  By
+default, these patterns are prefixed with &#8220;CHECK:&#8221;.  If you&#8217;d like to use a
+different prefix (e.g. because the same input file is checking multiple
+different tool or options), the <strong>&#8211;check-prefix</strong> argument allows you to specify
+a specific prefix to match.</div></blockquote>
+<p><strong>&#8211;input-file</strong> <em>filename</em></p>
+<blockquote>
+<div>File to check (defaults to stdin).</div></blockquote>
+<p><strong>&#8211;strict-whitespace</strong></p>
+<blockquote>
+<div>By default, FileCheck canonicalizes input horizontal whitespace (spaces and
+tabs) which causes it to ignore these differences (a space will match a tab).
+The &#8211;strict-whitespace argument disables this behavior.</div></blockquote>
+<p><strong>-version</strong></p>
+<blockquote>
+<div>Show the version number of this program.</div></blockquote>
+</div>
+<div class="section" id="exit-status">
+<h2>EXIT STATUS<a class="headerlink" href="#exit-status" title="Permalink to this headline">¶</a></h2>
+<p>If <strong>FileCheck</strong> verifies that the file matches the expected contents, it exits
+with 0.  Otherwise, if not, or if an error occurs, it will exit with a non-zero
+value.</p>
+</div>
+<div class="section" id="tutorial">
+<h2>TUTORIAL<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
+<p>FileCheck is typically used from LLVM regression tests, being invoked on the RUN
+line of the test.  A simple example of using FileCheck from a RUN line looks
+like this:</p>
+<div class="highlight-llvm"><div class="highlight"><pre><span class="c">; RUN: llvm-as &lt; %s | llc -march=x86-64 | FileCheck %s</span>
+</pre></div>
+</div>
+<p>This syntax says to pipe the current file (&#8220;%s&#8221;) into llvm-as, pipe that into
+llc, then pipe the output of llc into FileCheck.  This means that FileCheck will
+be verifying its standard input (the llc output) against the filename argument
+specified (the original .ll file specified by &#8220;%s&#8221;).  To see how this works,
+let&#8217;s look at the rest of the .ll file (after the RUN line):</p>
+<div class="highlight-llvm"><div class="highlight"><pre><span class="k">define</span> <span class="kt">void</span> <span class="vg">@sub1</span><span class="p">(</span><span class="k">i32</span><span class="p">*</span> <span class="nv">%p</span><span class="p">,</span> <span class="k">i32</span> <span class="nv">%v</span><span class="p">)</span> <span class="p">{</span>
+<span class="nl">entry:</span>
+<span class="c">; CHECK: sub1:</span>
+<span class="c">; CHECK: subl</span>
+        <span class="nv-Anonymous">%0</span> <span class="p">=</span> <span class="k">tail</span> <span class="k">call</span> <span class="k">i32</span> <span class="vg">@llvm.atomic.load.sub.i32.p0i32</span><span class="p">(</span><span class="k">i32</span><span class="p">*</span> <span class="nv">%p</span><span class="p">,</span> <span class="k">i32</span> <span class="nv">%v</span><span class="p">)</span>
+        <span class="k">ret</span> <span class="kt">void</span>
+<span class="p">}</span>
+
+<span class="k">define</span> <span class="kt">void</span> <span class="vg">@inc4</span><span class="p">(</span><span class="k">i64</span><span class="p">*</span> <span class="nv">%p</span><span class="p">)</span> <span class="p">{</span>
+<span class="nl">entry:</span>
+<span class="c">; CHECK: inc4:</span>
+<span class="c">; CHECK: incq</span>
+        <span class="nv-Anonymous">%0</span> <span class="p">=</span> <span class="k">tail</span> <span class="k">call</span> <span class="k">i64</span> <span class="vg">@llvm.atomic.load.add.i64.p0i64</span><span class="p">(</span><span class="k">i64</span><span class="p">*</span> <span class="nv">%p</span><span class="p">,</span> <span class="k">i64</span> <span class="m">1</span><span class="p">)</span>
+        <span class="k">ret</span> <span class="kt">void</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here you can see some &#8220;CHECK:&#8221; lines specified in comments.  Now you can see
+how the file is piped into llvm-as, then llc, and the machine code output is
+what we are verifying.  FileCheck checks the machine code output to verify that
+it matches what the &#8220;CHECK:&#8221; lines specify.</p>
+<p>The syntax of the CHECK: lines is very simple: they are fixed strings that
+must occur in order.  FileCheck defaults to ignoring horizontal whitespace
+differences (e.g. a space is allowed to match a tab) but otherwise, the contents
+of the CHECK: line is required to match some thing in the test file exactly.</p>
+<p>One nice thing about FileCheck (compared to grep) is that it allows merging
+test cases together into logical groups.  For example, because the test above
+is checking for the &#8220;sub1:&#8221; and &#8220;inc4:&#8221; labels, it will not match unless there
+is a &#8220;subl&#8221; in between those labels.  If it existed somewhere else in the file,
+that would not count: &#8220;grep subl&#8221; matches if subl exists anywhere in the
+file.</p>
+<div class="section" id="the-filecheck-check-prefix-option">
+<h3>The FileCheck -check-prefix option<a class="headerlink" href="#the-filecheck-check-prefix-option" title="Permalink to this headline">¶</a></h3>
+<p>The FileCheck -check-prefix option allows multiple test configurations to be
+driven from one .ll file.  This is useful in many circumstances, for example,
+testing different architectural variants with llc.  Here&#8217;s a simple example:</p>
+<div class="highlight-llvm"><div class="highlight"><pre><span class="c">; RUN: llvm-as &lt; %s | llc -mtriple=i686-apple-darwin9 -mattr=sse41 \</span>
+<span class="c">; RUN:              | FileCheck %s -check-prefix=X32</span>
+<span class="c">; RUN: llvm-as &lt; %s | llc -mtriple=x86_64-apple-darwin9 -mattr=sse41 \</span>
+<span class="c">; RUN:              | FileCheck %s -check-prefix=X64</span>
+
+<span class="k">define</span> <span class="p">&lt;</span><span class="m">4</span> <span class="k">x</span> <span class="k">i32</span><span class="p">&gt;</span> <span class="vg">@pinsrd_1</span><span class="p">(</span><span class="k">i32</span> <span class="nv">%s</span><span class="p">,</span> <span class="p">&lt;</span><span class="m">4</span> <span class="k">x</span> <span class="k">i32</span><span class="p">&gt;</span> <span class="nv">%tmp</span><span class="p">)</span> <span class="k">nounwind</span> <span class="p">{</span>
+        <span class="nv">%tmp1</span> <span class="p">=</span> <span class="k">insertelement</span> <span class="p">&lt;</span><span class="m">4</span> <span class="k">x</span> <span class="k">i32</span><span class="p">&gt;</span><span class="c">; %tmp, i32 %s, i32 1</span>
+        <span class="k">ret</span> <span class="p">&lt;</span><span class="m">4</span> <span class="k">x</span> <span class="k">i32</span><span class="p">&gt;</span> <span class="nv">%tmp1</span>
+<span class="c">; X32: pinsrd_1:</span>
+<span class="c">; X32:    pinsrd $1, 4(%esp), %xmm0</span>
+
+<span class="c">; X64: pinsrd_1:</span>
+<span class="c">; X64:    pinsrd $1, %edi, %xmm0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this case, we&#8217;re testing that we get the expected code generation with
+both 32-bit and 64-bit code generation.</p>
+</div>
+<div class="section" id="the-check-next-directive">
+<h3>The &#8220;CHECK-NEXT:&#8221; directive<a class="headerlink" href="#the-check-next-directive" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes you want to match lines and would like to verify that matches
+happen on exactly consecutive lines with no other lines in between them.  In
+this case, you can use CHECK: and CHECK-NEXT: directives to specify this.  If
+you specified a custom check prefix, just use &#8220;&lt;PREFIX&gt;-NEXT:&#8221;.  For
+example, something like this works as you&#8217;d expect:</p>
+<div class="highlight-llvm"><div class="highlight"><pre><span class="k">define</span> <span class="kt">void</span> <span class="vg">@t2</span><span class="p">(&lt;</span><span class="m">2</span> <span class="k">x</span> <span class="kt">double</span><span class="p">&gt;*</span> <span class="nv">%r</span><span class="p">,</span> <span class="p">&lt;</span><span class="m">2</span> <span class="k">x</span> <span class="kt">double</span><span class="p">&gt;*</span> <span class="nv">%A</span><span class="p">,</span> <span class="kt">double</span> <span class="nv">%B</span><span class="p">)</span> <span class="p">{</span>
+     <span class="nv">%tmp3</span> <span class="p">=</span> <span class="k">load</span> <span class="p">&lt;</span><span class="m">2</span> <span class="k">x</span> <span class="kt">double</span><span class="p">&gt;*</span> <span class="nv">%A</span><span class="p">,</span> <span class="k">align</span> <span class="m">16</span>
+     <span class="nv">%tmp7</span> <span class="p">=</span> <span class="k">insertelement</span> <span class="p">&lt;</span><span class="m">2</span> <span class="k">x</span> <span class="kt">double</span><span class="p">&gt;</span> <span class="k">undef</span><span class="p">,</span> <span class="kt">double</span> <span class="nv">%B</span><span class="p">,</span> <span class="k">i32</span> <span class="m">0</span>
+     <span class="nv">%tmp9</span> <span class="p">=</span> <span class="k">shufflevector</span> <span class="p">&lt;</span><span class="m">2</span> <span class="k">x</span> <span class="kt">double</span><span class="p">&gt;</span> <span class="nv">%tmp3</span><span class="p">,</span>
+                            <span class="p">&lt;</span><span class="m">2</span> <span class="k">x</span> <span class="kt">double</span><span class="p">&gt;</span> <span class="nv">%tmp7</span><span class="p">,</span>
+                            <span class="p">&lt;</span><span class="m">2</span> <span class="k">x</span> <span class="k">i32</span><span class="p">&gt;</span> <span class="p">&lt;</span> <span class="k">i32</span> <span class="m">0</span><span class="p">,</span> <span class="k">i32</span> <span class="m">2</span> <span class="p">&gt;</span>
+     <span class="k">store</span> <span class="p">&lt;</span><span class="m">2</span> <span class="k">x</span> <span class="kt">double</span><span class="p">&gt;</span> <span class="nv">%tmp9</span><span class="p">,</span> <span class="p">&lt;</span><span class="m">2</span> <span class="k">x</span> <span class="kt">double</span><span class="p">&gt;*</span> <span class="nv">%r</span><span class="p">,</span> <span class="k">align</span> <span class="m">16</span>
+     <span class="k">ret</span> <span class="kt">void</span>
+
+<span class="c">; CHECK:          t2:</span>
+<span class="c">; CHECK:             movl    8(%esp), %eax</span>
+<span class="c">; CHECK-NEXT:        movapd  (%eax), %xmm0</span>
+<span class="c">; CHECK-NEXT:        movhpd  12(%esp), %xmm0</span>
+<span class="c">; CHECK-NEXT:        movl    4(%esp), %eax</span>
+<span class="c">; CHECK-NEXT:        movapd  %xmm0, (%eax)</span>
+<span class="c">; CHECK-NEXT:        ret</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>CHECK-NEXT: directives reject the input unless there is exactly one newline
+between it an the previous directive.  A CHECK-NEXT cannot be the first
+directive in a file.</p>
+</div>
+<div class="section" id="the-check-not-directive">
+<h3>The &#8220;CHECK-NOT:&#8221; directive<a class="headerlink" href="#the-check-not-directive" title="Permalink to this headline">¶</a></h3>
+<p>The CHECK-NOT: directive is used to verify that a string doesn&#8217;t occur
+between two matches (or before the first match, or after the last match).  For
+example, to verify that a load is removed by a transformation, a test like this
+can be used:</p>
+<div class="highlight-llvm"><div class="highlight"><pre><span class="k">define</span> <span class="k">i8</span> <span class="vg">@coerce_offset0</span><span class="p">(</span><span class="k">i32</span> <span class="nv">%V</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv">%P</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">store</span> <span class="k">i32</span> <span class="nv">%V</span><span class="p">,</span> <span class="k">i32</span><span class="p">*</span> <span class="nv">%P</span>
+
+  <span class="nv">%P2</span> <span class="p">=</span> <span class="k">bitcast</span> <span class="k">i32</span><span class="p">*</span> <span class="nv">%P</span> <span class="k">to</span> <span class="k">i8</span><span class="p">*</span>
+  <span class="nv">%P3</span> <span class="p">=</span> <span class="k">getelementptr</span> <span class="k">i8</span><span class="p">*</span> <span class="nv">%P2</span><span class="p">,</span> <span class="k">i32</span> <span class="m">2</span>
+
+  <span class="nv">%A</span> <span class="p">=</span> <span class="k">load</span> <span class="k">i8</span><span class="p">*</span> <span class="nv">%P3</span>
+  <span class="k">ret</span> <span class="k">i8</span> <span class="nv">%A</span>
+<span class="c">; CHECK: @coerce_offset0</span>
+<span class="c">; CHECK-NOT: load</span>
+<span class="c">; CHECK: ret i8</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filecheck-pattern-matching-syntax">
+<h3>FileCheck Pattern Matching Syntax<a class="headerlink" href="#filecheck-pattern-matching-syntax" title="Permalink to this headline">¶</a></h3>
+<p>The CHECK: and CHECK-NOT: directives both take a pattern to match.  For most
+uses of FileCheck, fixed string matching is perfectly sufficient.  For some
+things, a more flexible form of matching is desired.  To support this, FileCheck
+allows you to specify regular expressions in matching strings, surrounded by
+double braces: <strong>{{yourregex}}</strong>.  Because we want to use fixed string
+matching for a majority of what we do, FileCheck has been designed to support
+mixing and matching fixed string matching with regular expressions.  This allows
+you to write things like this:</p>
+<div class="highlight-llvm"><div class="highlight"><pre><span class="c">; CHECK: movhpd      {{[0-9]+}}(%esp), {{%xmm[0-7]}}</span>
+</pre></div>
+</div>
+<p>In this case, any offset from the ESP register will be allowed, and any xmm
+register will be allowed.</p>
+<p>Because regular expressions are enclosed with double braces, they are
+visually distinct, and you don&#8217;t need to use escape characters within the double
+braces like you would in C.  In the rare case that you want to match double
+braces explicitly from the input, you can use something ugly like
+<strong>{{[{][{]}}</strong> as your pattern.</p>
+</div>
+<div class="section" id="filecheck-variables">
+<h3>FileCheck Variables<a class="headerlink" href="#filecheck-variables" title="Permalink to this headline">¶</a></h3>
+<p>It is often useful to match a pattern and then verify that it occurs again
+later in the file.  For codegen tests, this can be useful to allow any register,
+but verify that that register is used consistently later.  To do this, FileCheck
+allows named variables to be defined and substituted into patterns.  Here is a
+simple example:</p>
+<div class="highlight-llvm"><div class="highlight"><pre><span class="c">; CHECK: test5:</span>
+<span class="c">; CHECK:    notw     [[REGISTER:%[a-z]+]]</span>
+<span class="c">; CHECK:    andw     {{.*}}[[REGISTER]]</span>
+</pre></div>
+</div>
+<p>The first check line matches a regex (<strong>%[a-z]+</strong>) and captures it into
+the variable &#8220;REGISTER&#8221;.  The second line verifies that whatever is in REGISTER
+occurs later in the file after an &#8220;andw&#8221;.  FileCheck variable references are
+always contained in <strong>[[ ]]</strong> pairs, and their names can be formed with the
+regex <strong>[a-zA-Z][a-zA-Z0-9]*</strong>.  If a colon follows the name, then it is a
+definition of the variable; otherwise, it is a use.</p>
+<p>FileCheck variables can be defined multiple times, and uses always get the
+latest value.  Note that variables are all read at the start of a &#8220;CHECK&#8221; line
+and are all defined at the end.  This means that if you have something like
+&#8220;<strong>CHECK: [[XYZ:.\*]]x[[XYZ]]</strong>&#8221;, the check line will read the previous
+value of the XYZ variable and define a new one after the match is performed.  If
+you need to do something like this you can probably take advantage of the fact
+that FileCheck is not actually line-oriented when it matches, this allows you to
+define two separate CHECK lines that match on the same line.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tblgen.html" title="tblgen - Target Description To C++ Code Generator"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="llvm-bcanalyzer.html" title="llvm-bcanalyzer - LLVM bitcode analyzer"
+             >previous</a> |</li>
+  <li><a href="http://llvm.org/">LLVM Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="../index.html">Documentation</a>&raquo;</li>
+
+          <li><a href="../userguides.html" >User Guides</a> &raquo;</li>
+          <li><a href="index.html" >LLVM Command Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, LLVM Project.
+      Last updated on 2012-12-21.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

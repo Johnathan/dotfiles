@@ -1,0 +1,181 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>How To Build On ARM &mdash; LLVM 3.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/llvm-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="LLVM 3.2 documentation" href="index.html" />
+    <link rel="up" title="User Guides" href="userguides.html" />
+    <link rel="next" title="LLVM Command Guide" href="CommandGuide/index.html" />
+    <link rel="prev" title="Building LLVM with CMake" href="CMake.html" />
+<style type="text/css">
+  table.right { float: right; margin-left: 20px; }
+  table.right td { border: 1px solid #ccc; }
+</style>
+
+  </head>
+  <body>
+<div class="logo">
+  <a href="index.html">
+    <img src="_static/logo.png"
+         alt="LLVM Logo" width="250" height="88"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="CommandGuide/index.html" title="LLVM Command Guide"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="CMake.html" title="Building LLVM with CMake"
+             accesskey="P">previous</a> |</li>
+  <li><a href="http://llvm.org/">LLVM Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="index.html">Documentation</a>&raquo;</li>
+
+          <li><a href="userguides.html" accesskey="U">User Guides</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How To Build On ARM</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#notes-on-building-llvm-clang-on-arm">Notes On Building LLVM/Clang on ARM</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="CMake.html"
+                        title="previous chapter">Building LLVM with CMake</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="CommandGuide/index.html"
+                        title="next chapter">LLVM Command Guide</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/HowToBuildOnARM.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="how-to-build-on-arm">
+<span id="id1"></span><h1>How To Build On ARM<a class="headerlink" href="#how-to-build-on-arm" title="Permalink to this headline">¶</a></h1>
+<p><em>Section author: Wei-Ren Chen (陳韋任) &lt;<a class="reference external" href="mailto:chenwj&#37;&#52;&#48;iis&#46;sinica&#46;edu&#46;tw">chenwj<span>&#64;</span>iis<span>&#46;</span>sinica<span>&#46;</span>edu<span>&#46;</span>tw</a>&gt;</em></p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This document contains information about building/testing LLVM and
+Clang on ARM.</p>
+</div>
+<div class="section" id="notes-on-building-llvm-clang-on-arm">
+<h2>Notes On Building LLVM/Clang on ARM<a class="headerlink" href="#notes-on-building-llvm-clang-on-arm" title="Permalink to this headline">¶</a></h2>
+<p>Here are some notes on building/testing LLVM/Clang on ARM. Note that
+ARM encompasses a wide variety of CPUs; this advice is primarily based
+on the ARMv6 and ARMv7 architectures and may be inapplicable to older chips.</p>
+<ol class="arabic">
+<li><p class="first">If you are building LLVM/Clang on an ARM board with 1G of memory or less,
+please use <tt class="docutils literal"><span class="pre">gold</span></tt> rather then GNU <tt class="docutils literal"><span class="pre">ld</span></tt>.
+Building LLVM/Clang with <tt class="docutils literal"><span class="pre">--enable-optimized</span></tt>
+is prefered since it consumes less memory. Otherwise, the building
+process will very likely fail due to insufficient memory. In any
+case it is probably a good idea to set up a swap partition.</p>
+</li>
+<li><p class="first">If you want to run <tt class="docutils literal"><span class="pre">make</span>
+<span class="pre">check-all</span></tt> after building LLVM/Clang, to avoid false alarms (eg, ARCMT
+failure) please use at least the following configuration:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>../<span class="nv">$LLVM_SRC_DIR</span>/configure --with-abi<span class="o">=</span>aapcs-vfp
+</pre></div>
+</div>
+</li>
+<li><p class="first">The most popular linaro/ubuntu OS&#8217;s for ARM boards, eg, the
+Pandaboard, have become hard-float platforms. The following set
+of configuration options appears to be a good choice for this
+platform:</p>
+<div class="highlight-bash"><div class="highlight"><pre>./configure --build<span class="o">=</span>armv7l-unknown-linux-gnueabihf
+--host<span class="o">=</span>armv7l-unknown-linux-gnueabihf
+--target<span class="o">=</span>armv7l-unknown-linux-gnueabihf --with-cpu<span class="o">=</span>cortex-a9
+--with-float<span class="o">=</span>hard --with-abi<span class="o">=</span>aapcs-vfp --with-fpu<span class="o">=</span>neon
+--enable-targets<span class="o">=</span>arm --disable-optimized --enable-assertions
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="CommandGuide/index.html" title="LLVM Command Guide"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="CMake.html" title="Building LLVM with CMake"
+             >previous</a> |</li>
+  <li><a href="http://llvm.org/">LLVM Home</a>&nbsp;|&nbsp;</li>
+  <li><a href="index.html">Documentation</a>&raquo;</li>
+
+          <li><a href="userguides.html" >User Guides</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, LLVM Project.
+      Last updated on 2012-12-21.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
