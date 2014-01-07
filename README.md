@@ -50,3 +50,7 @@ There's a few dependencies such as having ruby, python and brew installed on you
 `cmake -G "Unix Makefiles" -DPATH_TO_LLVM_ROOT=~/ycm_temp/clang+llvm-3.2-x86_64-apple-darwin11 . ~/.vim/bundle/YouCompleteMe/cpp`
 
 `make ycm_core`
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Johnathan/dotfiles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
