@@ -1,62 +1,54 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:~/.composer/vendor/bin:$PATH
+# Source Prezto
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# History
+HISTSIZE=50000
+SAVEHIST=50000
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# PATH
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.composer/vendor/bin:$PATH"
 
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-)
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-source $ZSH/oh-my-zsh.sh
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
-# You may need to manually set your language environment
-export LANG=en_GB.UTF-8
-
-export PATH=/usr/local/bin:/Users/$HOME/bin:/usr/local/bin:/Users/$HOME/.composer/vendor/bin:/Users/$HOME/bin:/usr/local/bin:/Users/$HOME/.composer/vendor/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-
+# Bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # Aliases
-alias gs="git status -s"
-alias ev="source ~/.zshrc"
-alias whysoslow="top -o vsize"
-alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
+alias ll='ls -laF'
+alias gs='git status -s'
+alias fco='git for-each-ref --sort=-committerdate --format="%(refname:short)" refs/heads/ | fzf --height=20% --reverse --info=inline --prompt="Switch to branch: " | xargs git checkout'
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-
-function weather() {
-    if [[ $@ ]] then
-      curl -s wttr.in/"$@" | sed -n "1,7p"
-    else # otherwise fallback to london
-      curl -s wttr.in/london | sed -n "1,7p"
-    fi
-}
 
 # Determine size of a file or total size of a directory
 function fs() {
-    if du -b /dev/null > /dev/null 2>&1; then
-        local arg=-sbh;
-    else
-        local arg=-sh;
-    fi
-    if [[ -n "$@" ]]; then
-        du $arg -- "$@";
-    else
-        du $arg .[^.]* ./*;
-    fi;
+  if du -b /dev/null > /dev/null 2>&1; then
+    local arg=-sbh
+  else
+    local arg=-sh
+  fi
+  if [[ -n "$@" ]]; then
+    du $arg -- "$@"
+  else
+    du $arg .[^.]* ./*
+  fi
 }
 
-CUSTOM_ZSHRC=$HOME/.custom_zshrc
-if test -f "$CUSTOM_ZSHRC"; then
-  source $CUSTOM_ZSHRC
-fi
+# Source machine-specific secrets/config (not in repo)
+[[ -f "$HOME/.secrets" ]] && source "$HOME/.secrets"
