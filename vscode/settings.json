@@ -1,0 +1,63 @@
+{
+  "editor.accessibilitySupport": "off",
+  "explorer.confirmDragAndDrop": false,
+  "git.autofetch": true,
+  "editor.fontSize": 14,
+  "editor.fontVariations": false,
+  "editor.minimap.enabled": true,
+  "editor.minimap.scale": 2,
+  "editor.minimap.renderCharacters": false,
+  "workbench.colorTheme": "Solarized Dark",
+  "workbench.editor.enablePreview": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "diffEditor.experimental.useTrueInlineView": true,
+  "terminal.explorerKind": "external",
+  "terminal.external.osxExec": "Warp.app",
+  "terminal.integrated.automationProfile.osx": {},
+  "security.promptForLocalFileProtocolHandling": false,
+  "Laravel.phpCommand": "./docker.sh --no-interactive php {code}",
+  "Laravel.basePath": "/var/www/laravel-app",
+  "Laravel.pint.runOnSave": true,
+  "makefile.configureOnOpen": true,
+  "gitlens.plusFeatures.enabled": false,
+  "vue.format.script.initialIndent": true,
+  "vue.format.style.initialIndent": true,
+  "vue.inlayHints.destructuredProps": true,
+  "vue.inlayHints.inlineHandlerLeading": true,
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[php]": {
+    "editor.defaultFormatter": "laravel.vscode-laravel"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "chat.commandCenter.enabled": false,
+  "editor.tabCompletion": "on",
+  "coderabbit.agentType": "Claude Code",
+  "coderabbit.autoReviewMode": "disabled",
+  "vsicons.dontShowNewVersionMessage": true,
+  "vscode-pets.petColor": "orange",
+  "vscode-pets.petSize": "medium",
+  "vscode-pets.position": "panel",
+  "vscode-pets.throwBallWithMouse": true,
+  "explorer.confirmDelete": false,
+  "phpunit.args": [],
+  "explorer.confirmPasteNative": false,
+  "claudeCode.selectedModel": "opus",
+  "claudeCode.environmentVariables": [],
+  "claudeCode.useTerminal": true,
+  "claudeCode.initialPermissionMode": "acceptEdits",
+  "claudeCode.allowDangerouslySkipPermissions": true,
+  "claudeCode.preferredLocation": "sidebar",
+  "security.workspace.trust.untrustedFiles": "open",
+  "vim.vimrc.enable": true,
+  "vim.vimrc.path": "~/.vimrc"
+}
