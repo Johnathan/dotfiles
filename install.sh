@@ -61,7 +61,7 @@ bootstrap_linux() {
     sudo apt update
 
     # Packages
-    sudo apt install -y tmux neovim fzf zsh git curl
+    sudo apt install -y tmux neovim fzf zsh git curl build-essential ripgrep
 
     # Prezto
     install_prezto
