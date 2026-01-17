@@ -1,14 +1,13 @@
 # Dotfiles Project Context
 
 ## Platform
-- macOS (Apple Silicon)
-- Homebrew for package management
+- macOS (Apple Silicon) and Ubuntu Linux
+- Homebrew on macOS, apt on Ubuntu
 
 ## Tools
 - **Shell**: zsh with [Prezto](https://github.com/sorin-ionescu/prezto) and [Powerlevel10k](https://github.com/romkatv/powerlevel10k) prompt
 - **Terminal multiplexer**: tmux with [TPM](https://github.com/tmux-plugins/tpm)
-- **Editor**: VS Code with vim extension, planning transition to neovim
-- **Vim config**: `.vimrc` - works in vim, neovim, and VS Code vim extension
+- **Editor**: neovim
 - **Font**: MesloLGS Nerd Font (for prompt icons)
 
 ## Philosophy
@@ -16,27 +15,23 @@
 - Prefer current best practices over legacy compatibility
 - Use plugin managers (TPM for tmux, Prezto for zsh)
 - Secrets go in `~/.secrets` (not in repo)
-- Makefile handles installation and symlinking
+- `install.sh` handles installation and symlinking
 
 ## Structure
 ```
 dotfiles/
-├── .tmux.conf      # tmux config
+├── tmux/.tmux.conf # tmux config
+├── nvim/           # neovim config
 ├── .zshrc          # zsh config (uses Prezto + Powerlevel10k)
 ├── .p10k.zsh       # Powerlevel10k prompt config
-├── .vimrc          # vim/neovim config
-├── vscode/         # VS Code settings
-│   ├── settings.json
-│   ├── keybindings.json
-│   └── extensions.txt
-├── Makefile        # installation automation
+├── install.sh      # installation automation
 └── README.md
 ```
 
-## Makefile targets
-- `make bootstrap` - fresh Mac setup (homebrew, prezto, vscode, tmux)
-- `make install` - symlink all configs
-- Individual: `make tmux`, `make zsh`, `make vim`, `make vscode`
+## install.sh commands
+- `./install.sh bootstrap` - fresh machine setup (brew/apt, prezto, tmux, nvim)
+- `./install.sh` - symlink all configs
+- Individual: `./install.sh tmux`, `./install.sh zsh`, `./install.sh nvim`
 
 ## When updating configs
 - Test changes work before committing
@@ -44,14 +39,14 @@ dotfiles/
 - Remove deprecated options rather than commenting them out
 - Use `$HOME` instead of hardcoded paths
 
-## Makefile conventions
-- Each target should output manual steps with emojis:
+## install.sh conventions
+- Each command should output manual steps with emojis:
   - ✅ for completion
   - 📋 for "Manual steps:"
   - 👉 for each manual step
 - Example:
   ```
-  @echo "✅ thing configured"
-  @echo "📋 Manual steps:"
-  @echo "   👉 Do this thing manually"
+  echo "✅ thing configured"
+  echo "📋 Manual steps:"
+  echo "   👉 Do this thing manually"
   ```

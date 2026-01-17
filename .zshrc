@@ -10,9 +10,11 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Powerlevel10k prompt
+# Powerlevel10k prompt (different paths for macOS/Linux)
 if [[ -f "/opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme" ]]; then
   source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+elif [[ -f "$HOME/.powerlevel10k/powerlevel10k.zsh-theme" ]]; then
+  source "$HOME/.powerlevel10k/powerlevel10k.zsh-theme"
 fi
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
@@ -21,8 +23,7 @@ HISTSIZE=50000
 SAVEHIST=50000
 
 # PATH
-export PATH="/opt/homebrew/bin:$PATH"
-export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
+[[ -d "/opt/homebrew/bin" ]] && export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 
@@ -31,8 +32,12 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# pnpm
-export PNPM_HOME="$HOME/Library/pnpm"
+# pnpm (different paths for macOS/Linux)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  export PNPM_HOME="$HOME/Library/pnpm"
+else
+  export PNPM_HOME="$HOME/.local/share/pnpm"
+fi
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -49,7 +54,13 @@ alias gs='git status -s'
 alias fco='git for-each-ref --sort=-committerdate --format="%(refname:short)" refs/heads/ | fzf --height=20% --reverse --info=inline --prompt="Switch to branch: " | xargs git checkout'
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias vim=nvim
-alias here="pwd | pbcopy && echo 'Path copied to clipboard'"
+
+# Clipboard alias (cross-platform)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  alias here="pwd | pbcopy && echo 'Path copied to clipboard'"
+else
+  alias here="pwd | xclip -selection clipboard && echo 'Path copied to clipboard'"
+fi
 
 # Determine size of a file or total size of a directory
 function fs() {
