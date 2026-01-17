@@ -3,12 +3,23 @@
 VSCODE_DIR := $(HOME)/Library/Application Support/Code/User
 
 install: tmux zsh vim vscode
+	@echo ""
+	@echo "✅ Install complete!"
+	@echo ""
 
 # Bootstrap a fresh Mac (run once before install)
 bootstrap: homebrew prezto
 	brew install --cask visual-studio-code
+	brew install --cask font-meslo-lg-nerd-font
 	brew install tmux
-	@echo "Bootstrap complete. Run 'make install' next."
+	brew install powerlevel10k
+	@echo ""
+	@echo "✅ Bootstrap complete!"
+	@echo ""
+	@echo "📋 Manual steps:"
+	@echo "   👉 iTerm2: Preferences → Profiles → Text → Font → MesloLGS Nerd Font"
+	@echo "   👉 Run 'make install' to symlink configs"
+	@echo ""
 
 homebrew:
 	@if ! command -v brew &> /dev/null; then \
@@ -28,8 +39,14 @@ prezto:
 
 # Tmux setup
 tmux: tpm
-	ln -sf $(CURDIR)/.tmux.conf $(HOME)/.tmux.conf
+	ln -sf $(CURDIR)/tmux/.tmux.conf $(HOME)/.tmux.conf
 	~/.tmux/plugins/tpm/bin/install_plugins
+	@echo ""
+	@echo "✅ tmux configured"
+	@echo ""
+	@echo "📋 Manual steps:"
+	@echo "   👉 Reload config: prefix + r (or tmux source-file ~/.tmux.conf)"
+	@echo ""
 
 # Install TPM if not present
 tpm:
@@ -41,10 +58,22 @@ tpm:
 # Zsh setup
 zsh:
 	ln -sf $(CURDIR)/.zshrc $(HOME)/.zshrc
+	@if [ -f "$(CURDIR)/.p10k.zsh" ]; then \
+		ln -sf $(CURDIR)/.p10k.zsh $(HOME)/.p10k.zsh; \
+	fi
+	@echo ""
+	@echo "✅ zsh configured"
+	@echo ""
+	@echo "📋 Manual steps:"
+	@echo "   👉 Reload: source ~/.zshrc (or open new terminal)"
+	@echo ""
 
 # Vim setup
 vim:
 	ln -sf $(CURDIR)/.vimrc $(HOME)/.vimrc
+	@echo ""
+	@echo "✅ vim configured"
+	@echo ""
 
 # VS Code setup
 vscode:
@@ -52,3 +81,9 @@ vscode:
 	ln -sf "$(CURDIR)/vscode/keybindings.json" "$(VSCODE_DIR)/keybindings.json"
 	@echo "Installing VS Code extensions..."
 	@cat $(CURDIR)/vscode/extensions.txt | xargs -L 1 code --install-extension
+	@echo ""
+	@echo "✅ VS Code configured"
+	@echo ""
+	@echo "📋 Manual steps:"
+	@echo "   👉 Restart VS Code to apply settings"
+	@echo ""

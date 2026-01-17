@@ -22,7 +22,8 @@ make install
 ### bootstrap
 - Installs Homebrew (if missing)
 - Installs Prezto (if missing)
-- Installs VS Code and tmux via Homebrew
+- Installs VS Code, tmux, and Nerd Font via Homebrew
+- Outputs manual steps (e.g. set font in iTerm2)
 
 ### install
 - **tmux**: Symlinks `.tmux.conf`, installs TPM and plugins
