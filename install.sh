@@ -77,13 +77,19 @@ bootstrap_linux() {
     # Nerd Font
     install_nerd_font_linux
 
+    # Set zsh as default shell
+    if [[ "$SHELL" != *"zsh"* ]]; then
+        echo "Setting zsh as default shell..."
+        chsh -s "$(which zsh)"
+    fi
+
     echo ""
     echo "✅ Bootstrap complete!"
     echo ""
     echo "📋 Manual steps:"
     echo "   👉 Set terminal font to MesloLGS Nerd Font"
-    echo "   👉 Run 'chsh -s \$(which zsh)' to set zsh as default shell"
     echo "   👉 Run './install.sh' to symlink configs"
+    echo "   👉 Log out and back in for shell change to take effect"
     echo ""
 }
 
