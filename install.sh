@@ -126,13 +126,12 @@ install_tmux() {
     fi
 
     link "$DOTFILES/tmux/.tmux.conf" "$HOME/.tmux.conf"
-    ~/.tmux/plugins/tpm/bin/install_plugins
 
     echo ""
     echo "✅ tmux configured"
     echo ""
     echo "📋 Manual steps:"
-    echo "   👉 Reload config: prefix + r (or tmux source-file ~/.tmux.conf)"
+    echo "   👉 Open tmux and press prefix + I to install plugins"
     echo ""
 }
 
