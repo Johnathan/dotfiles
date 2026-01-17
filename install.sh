@@ -80,7 +80,7 @@ bootstrap_linux() {
     # Set zsh as default shell
     if [[ "$SHELL" != *"zsh"* ]]; then
         echo "Setting zsh as default shell..."
-        chsh -s "$(which zsh)"
+        sudo chsh -s "$(which zsh)" "$USER"
     fi
 
     echo ""
