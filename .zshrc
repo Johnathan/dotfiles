@@ -48,6 +48,9 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
+# Go
+export PATH="$PATH:$(go env GOPATH)/bin"
+
 # Aliases
 alias ll='ls -laF'
 alias gs='git status -s'

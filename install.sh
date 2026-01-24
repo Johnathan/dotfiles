@@ -158,10 +158,23 @@ install_nvim() {
     echo ""
 }
 
+install_kitty() {
+    mkdir -p "$HOME/.config"
+    link "$DOTFILES/kitty" "$HOME/.config/kitty"
+
+    echo ""
+    echo "✅ kitty configured"
+    echo ""
+    echo "📋 Manual steps:"
+    echo "   👉 Restart Kitty (or press Cmd+Control+, to reload)"
+    echo ""
+}
+
 install_all() {
     install_tmux
     install_zsh
     install_nvim
+    install_kitty
 
     echo ""
     echo "✅ Install complete!"
@@ -182,11 +195,14 @@ case "${1:-install}" in
     nvim)
         install_nvim
         ;;
+    kitty)
+        install_kitty
+        ;;
     install|"")
         install_all
         ;;
     *)
-        echo "Usage: $0 {bootstrap|install|tmux|zsh|nvim}"
+        echo "Usage: $0 {bootstrap|install|tmux|zsh|nvim|kitty}"
         exit 1
         ;;
 esac
