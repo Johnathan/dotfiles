@@ -48,8 +48,9 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
-# Go (default GOPATH is ~/go)
-export PATH="$PATH:$HOME/go/bin"
+# Go
+[[ -d "/usr/local/go/bin" ]] && export PATH="$PATH:/usr/local/go/bin"  # Go binary (Linux)
+export PATH="$PATH:$HOME/go/bin"  # User-installed Go programs
 
 # Aliases
 alias ll='ls -laF'
