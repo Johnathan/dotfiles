@@ -170,11 +170,20 @@ install_kitty() {
     echo ""
 }
 
+install_tig() {
+    link "$DOTFILES/tig/.tigrc" "$HOME/.tigrc"
+
+    echo ""
+    echo "✅ tig configured"
+    echo ""
+}
+
 install_all() {
     install_tmux
     install_zsh
     install_nvim
     install_kitty
+    install_tig
 
     echo ""
     echo "✅ Install complete!"
@@ -198,11 +207,14 @@ case "${1:-install}" in
     kitty)
         install_kitty
         ;;
+    tig)
+        install_tig
+        ;;
     install|"")
         install_all
         ;;
     *)
-        echo "Usage: $0 {bootstrap|install|tmux|zsh|nvim|kitty}"
+        echo "Usage: $0 {bootstrap|install|tmux|zsh|nvim|kitty|tig}"
         exit 1
         ;;
 esac

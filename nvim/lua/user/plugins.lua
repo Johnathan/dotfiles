@@ -27,6 +27,7 @@ return {
       vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
       vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help tags" })
+      vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "Git status" })
     end,
   },
 
@@ -36,9 +37,22 @@ return {
     config = function()
       require("nvim-tree").setup({
         view = { width = 30 },
+        open_on_tab = true,
+      })
+      vim.api.nvim_create_autocmd("VimEnter", {
+        callback = function()
+          require("nvim-tree.api").tree.open()
+        end,
       })
       vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
-      vim.keymap.set("n", "<leader>o", ":NvimTreeFocus<CR>", { desc = "Focus file explorer" })
+      vim.keymap.set("n", "<leader>o", function()
+        local view = require("nvim-tree.view")
+        if view.is_visible() and vim.bo.filetype == "NvimTree" then
+          vim.cmd("wincmd p")
+        else
+          vim.cmd("NvimTreeFocus")
+        end
+      end, { desc = "Toggle focus file explorer" })
     end,
   },
 }
