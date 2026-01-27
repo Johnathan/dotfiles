@@ -41,9 +41,8 @@ bootstrap_macos() {
     install_prezto
 
     # Packages
-    brew install tmux
-    brew install neovim
-    brew install fzf
+    brew install tmux neovim fzf ripgrep
+    brew install tig lazygit git-delta
     brew install powerlevel10k
     brew install --cask font-meslo-lg-nerd-font
 
@@ -61,7 +60,7 @@ bootstrap_linux() {
     sudo apt update
 
     # Packages
-    sudo apt install -y tmux neovim fzf zsh git curl build-essential ripgrep
+    sudo apt install -y tmux neovim fzf zsh git curl build-essential ripgrep tig
 
     # Prezto
     install_prezto
@@ -170,11 +169,12 @@ install_kitty() {
     echo ""
 }
 
-install_tig() {
-    link "$DOTFILES/tig/.tigrc" "$HOME/.tigrc"
+install_lazygit() {
+    mkdir -p "$HOME/.config/lazygit"
+    link "$DOTFILES/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
 
     echo ""
-    echo "✅ tig configured"
+    echo "✅ lazygit configured"
     echo ""
 }
 
@@ -183,7 +183,7 @@ install_all() {
     install_zsh
     install_nvim
     install_kitty
-    install_tig
+    install_lazygit
 
     echo ""
     echo "✅ Install complete!"
@@ -207,14 +207,14 @@ case "${1:-install}" in
     kitty)
         install_kitty
         ;;
-    tig)
-        install_tig
+    lazygit)
+        install_lazygit
         ;;
     install|"")
         install_all
         ;;
     *)
-        echo "Usage: $0 {bootstrap|install|tmux|zsh|nvim|kitty|tig}"
+        echo "Usage: $0 {bootstrap|install|tmux|zsh|nvim|kitty|lazygit}"
         exit 1
         ;;
 esac
