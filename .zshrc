@@ -1,6 +1,6 @@
 # Auto-attach to tmux on SSH login
 if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]]; then
-  tmux new-session -A -s default
+  tmux attach
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
