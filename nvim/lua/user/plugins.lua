@@ -98,10 +98,10 @@ return {
         yamlls = {},
       }
 
+      local lspconfig = require("lspconfig")
       for name, opts in pairs(servers) do
         opts.capabilities = capabilities
-        vim.lsp.config(name, opts)
-        vim.lsp.enable(name)
+        lspconfig[name].setup(opts)
       end
     end,
   },
