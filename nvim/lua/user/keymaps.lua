@@ -51,6 +51,8 @@ end
 -- Configure target pane: vim.g.claude_tmux_pane = "{last}" (default)
 -- Examples: "{right}", "{left}", ":.1", "%3"
 local function send_to_claude()
+  -- Exit visual mode first to update '< and '> marks
+  vim.cmd('normal! "vy')
   local start_line = vim.fn.line("'<")
   local end_line = vim.fn.line("'>")
   local lines = vim.fn.getline(start_line, end_line)
