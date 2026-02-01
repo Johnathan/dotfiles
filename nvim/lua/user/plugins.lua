@@ -27,9 +27,10 @@ return {
     end,
   },
 
-  -- Mason: LSP installer
+  -- Mason: LSP installer (requires nvim 0.10+)
   {
     "williamboman/mason.nvim",
+    cond = vim.fn.has("nvim-0.10") == 1,
     config = function()
       require("mason").setup()
     end,
@@ -37,6 +38,7 @@ return {
 
   {
     "williamboman/mason-lspconfig.nvim",
+    cond = vim.fn.has("nvim-0.10") == 1,
     dependencies = { "williamboman/mason.nvim" },
     config = function()
       require("mason-lspconfig").setup({
@@ -45,9 +47,10 @@ return {
     end,
   },
 
-  -- LSP
+  -- LSP (requires nvim 0.10+)
   {
     "neovim/nvim-lspconfig",
+    cond = vim.fn.has("nvim-0.10") == 1,
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
@@ -75,7 +78,6 @@ return {
         end,
       })
 
-      -- Setup servers using native vim.lsp.config (new API)
       local servers = {
         ts_ls = {},
         volar = {},

@@ -68,9 +68,13 @@ local function send_to_claude()
   -- Build the full text
   local text = header .. "\n" .. fence_open .. "\n" .. table.concat(lines, "\n") .. "\n" .. fence_close
 
-  -- Escape for tmux send-keys and send
-  local escaped = text:gsub("\\", "\\\\"):gsub('"', '\\"'):gsub("%$", "\\$"):gsub("`", "\\`")
-  vim.fn.system(string.format('tmux send-keys -t %s "%s"', target, escaped))
+  -- Use tmux load-buffer/paste-buffer for reliable multi-line content
+  local tmpfile = os.tmpname()
+  local f = io.open(tmpfile, "w")
+  f:write(text)
+  f:close()
+  vim.fn.system(string.format("tmux load-buffer %s && tmux paste-buffer -t %s", tmpfile, target))
+  os.remove(tmpfile)
 end
 
 vim.keymap.set("v", "<leader>cc", send_to_claude, { desc = "Send to Claude Code" })
