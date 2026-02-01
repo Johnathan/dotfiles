@@ -46,3 +46,31 @@ for _, mode in ipairs({ 'i', 'v' }) do
     vim.keymap.set(mode, key, '<Nop>')
   end
 end
+
+-- Send visual selection to Claude Code in tmux pane
+-- Configure target pane: vim.g.claude_tmux_pane = "{last}" (default)
+-- Examples: "{right}", "{left}", ":.1", "%3"
+local function send_to_claude()
+  local start_line = vim.fn.line("'<")
+  local end_line = vim.fn.line("'>")
+  local lines = vim.fn.getline(start_line, end_line)
+  if type(lines) == "string" then lines = { lines } end
+
+  local filepath = vim.fn.expand("%:.")  -- relative path
+  local filetype = vim.bo.filetype
+  local target = vim.g.claude_tmux_pane or "{last}"
+
+  -- Format: In `file:lines`:\n```lang\ncode\n```
+  local header = string.format("In `%s:%d-%d`:", filepath, start_line, end_line)
+  local fence_open = "```" .. filetype
+  local fence_close = "```"
+
+  -- Build the full text
+  local text = header .. "\n" .. fence_open .. "\n" .. table.concat(lines, "\n") .. "\n" .. fence_close
+
+  -- Escape for tmux send-keys and send
+  local escaped = text:gsub("\\", "\\\\"):gsub('"', '\\"'):gsub("%$", "\\$"):gsub("`", "\\`")
+  vim.fn.system(string.format('tmux send-keys -t %s "%s"', target, escaped))
+end
+
+vim.keymap.set("v", "<leader>cc", send_to_claude, { desc = "Send to Claude Code" })

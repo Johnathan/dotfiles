@@ -30,6 +30,7 @@
 | Git status | `<leader>gs` | telescope |
 | Toggle explorer | `<leader>e` | nvim-tree |
 | Focus explorer | `<leader>o` | nvim-tree |
+| Send to Claude | `<leader>cc` | (visual mode) |
 
 ---
 
@@ -505,6 +506,31 @@ Works the same in both vim and tmux!
 ```
 
 Unlike `:bd`, this won't close your split windows.
+
+---
+
+## Claude Code Integration
+
+Send visual selection to Claude Code running in another tmux pane:
+
+```
+<leader>cc          Send selection to Claude (visual mode)
+```
+
+The selection is sent with file context:
+```
+In `src/app.js:42-58`:
+```javascript
+// your selected code here
+```
+```
+
+**Configure target pane** (optional, defaults to last pane):
+```lua
+vim.g.claude_tmux_pane = "{last}"   -- default: last active pane
+vim.g.claude_tmux_pane = "{right}"  -- pane to the right
+vim.g.claude_tmux_pane = ":.1"      -- pane 1 in current window
+```
 
 ---
 
