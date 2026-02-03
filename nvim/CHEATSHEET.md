@@ -476,14 +476,14 @@ gf                  Follow [[wiki link]] under cursor
 ### Commands
 
 ```
-:ObsidianOpen       Open current note in Obsidian app
-:ObsidianNew        Create a new note
-:ObsidianSearch     Search notes by content
-:ObsidianQuickSwitch  Find note by name
-:ObsidianBacklinks  Show notes linking to this one
-:ObsidianTags       Browse all tags
-:ObsidianToday      Open/create today's daily note
-:ObsidianYesterday  Open yesterday's daily note
+:Obsidian open      Open current note in Obsidian app
+:Obsidian new       Create a new note
+:Obsidian search    Search notes by content
+:Obsidian quick_switch  Find note by name
+:Obsidian backlinks Show notes linking to this one
+:Obsidian tags      Browse all tags
+:Obsidian today     Open/create today's daily note
+:Obsidian yesterday Open yesterday's daily note
 ```
 
 ---

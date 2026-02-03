@@ -240,17 +240,14 @@ return {
       workspaces = {
         { name = "notes", path = "~/Obsidian" },
       },
-      -- Use gf to follow links (default vim behavior extended)
-      follow_url_func = function(url)
-        vim.fn.jobstart({ "open", url }) -- macOS
-      end,
+      legacy_commands = false,
     },
     keys = {
-      { "<leader>on", "<cmd>ObsidianNew<cr>", desc = "New note" },
-      { "<leader>oo", "<cmd>ObsidianQuickSwitch<cr>", desc = "Find note" },
-      { "<leader>os", "<cmd>ObsidianSearch<cr>", desc = "Search notes" },
-      { "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "Backlinks" },
-      { "<leader>ot", "<cmd>ObsidianTags<cr>", desc = "Tags" },
+      { "<leader>on", "<cmd>Obsidian new<cr>", desc = "New note" },
+      { "<leader>oo", "<cmd>Obsidian quick_switch<cr>", desc = "Find note" },
+      { "<leader>os", "<cmd>Obsidian search<cr>", desc = "Search notes" },
+      { "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Backlinks" },
+      { "<leader>ot", "<cmd>Obsidian tags<cr>", desc = "Tags" },
     },
   },
 
