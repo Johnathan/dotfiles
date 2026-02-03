@@ -226,6 +226,34 @@ return {
   { "AndrewRadev/splitjoin.vim" },
   { "sickill/vim-pasta" },
 
+  -- Obsidian wiki links support
+  {
+    "obsidian-nvim/obsidian.nvim",
+    version = "*",
+    lazy = true,
+    ft = "markdown",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    opts = {
+      workspaces = {
+        { name = "notes", path = "~/Obsidian" },
+      },
+      -- Use gf to follow links (default vim behavior extended)
+      follow_url_func = function(url)
+        vim.fn.jobstart({ "open", url }) -- macOS
+      end,
+    },
+    keys = {
+      { "<leader>on", "<cmd>ObsidianNew<cr>", desc = "New note" },
+      { "<leader>oo", "<cmd>ObsidianQuickSwitch<cr>", desc = "Find note" },
+      { "<leader>os", "<cmd>ObsidianSearch<cr>", desc = "Search notes" },
+      { "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "Backlinks" },
+      { "<leader>ot", "<cmd>ObsidianTags<cr>", desc = "Tags" },
+    },
+  },
+
   {
     "lewis6991/gitsigns.nvim",
     config = function()

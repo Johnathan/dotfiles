@@ -30,6 +30,9 @@
 | Git status | `<leader>gs` | telescope |
 | Toggle explorer | `<leader>e` | nvim-tree |
 | Focus explorer | `<leader>o` | nvim-tree |
+| Follow wiki link | `gf` | obsidian.nvim |
+| Find note | `<leader>oo` | obsidian.nvim |
+| Search notes | `<leader>os` | obsidian.nvim |
 | Send to Claude | `<leader>cc` | (visual mode) |
 
 ---
@@ -451,6 +454,36 @@ const obj = { foo: 1, bar: 2, baz: 3 }
 <C-v>               Open in vertical split
 <C-t>               Open in new tab
 <Esc>               Close telescope
+```
+
+---
+
+## obsidian.nvim
+
+Navigate and search your Obsidian vault (`~/Obsidian`) directly in Neovim.
+
+### Navigation
+
+```
+gf                  Follow [[wiki link]] under cursor
+<leader>oo          Find note by name (Telescope)
+<leader>os          Search note contents (Telescope)
+<leader>ob          Show backlinks to current note
+<leader>ot          Browse tags
+<leader>on          Create new note
+```
+
+### Commands
+
+```
+:ObsidianOpen       Open current note in Obsidian app
+:ObsidianNew        Create a new note
+:ObsidianSearch     Search notes by content
+:ObsidianQuickSwitch  Find note by name
+:ObsidianBacklinks  Show notes linking to this one
+:ObsidianTags       Browse all tags
+:ObsidianToday      Open/create today's daily note
+:ObsidianYesterday  Open yesterday's daily note
 ```
 
 ---
