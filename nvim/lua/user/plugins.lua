@@ -100,10 +100,19 @@ return {
         yamlls = {},
       }
 
-      local lspconfig = require("lspconfig")
-      for name, opts in pairs(servers) do
-        opts.capabilities = capabilities
-        lspconfig[name].setup(opts)
+      -- Use new API for 0.11+, old API for 0.10
+      if vim.fn.has("nvim-0.11") == 1 then
+        for name, opts in pairs(servers) do
+          opts.capabilities = capabilities
+          vim.lsp.config(name, opts)
+          vim.lsp.enable(name)
+        end
+      else
+        local lspconfig = require("lspconfig")
+        for name, opts in pairs(servers) do
+          opts.capabilities = capabilities
+          lspconfig[name].setup(opts)
+        end
       end
     end,
   },
