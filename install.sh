@@ -59,8 +59,11 @@ bootstrap_linux() {
     echo "Updating apt..."
     sudo apt update
 
-    # Packages
-    sudo apt install -y tmux neovim fzf zsh git curl build-essential ripgrep tig
+    # Packages (neovim installed separately for newer version)
+    sudo apt install -y tmux fzf zsh git curl build-essential ripgrep tig
+
+    # Neovim (apt version is outdated, use GitHub release)
+    install_neovim_linux
 
     # Prezto
     install_prezto
@@ -115,6 +118,29 @@ install_nerd_font_linux() {
     else
         echo "Nerd Font already installed"
     fi
+}
+
+install_neovim_linux() {
+    local nvim_version="0.11.6"
+    local install_dir="/opt/nvim"
+
+    # Check if already installed with correct version
+    if command -v nvim &> /dev/null && nvim --version | grep -q "v${nvim_version}"; then
+        echo "Neovim ${nvim_version} already installed"
+        return
+    fi
+
+    echo "Installing Neovim ${nvim_version}..."
+    curl -fLO "https://github.com/neovim/neovim/releases/download/v${nvim_version}/nvim-linux-x86_64.tar.gz"
+    sudo rm -rf "$install_dir"
+    sudo mkdir -p "$install_dir"
+    sudo tar -xzf nvim-linux-x86_64.tar.gz -C "$install_dir" --strip-components=1
+    rm nvim-linux-x86_64.tar.gz
+
+    # Add to path via symlink
+    sudo ln -sf "$install_dir/bin/nvim" /usr/local/bin/nvim
+
+    echo "Neovim ${nvim_version} installed"
 }
 
 install_tmux() {
