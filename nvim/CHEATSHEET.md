@@ -529,6 +529,13 @@ Seamlessly navigate between vim and tmux panes:
 
 Works the same in both vim and tmux!
 
+**Tmux pane swapping** (prefix + key):
+
+```
+{                   Swap current pane with previous
+}                   Swap current pane with next
+```
+
 ---
 
 ## bufdelete.nvim
