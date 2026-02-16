@@ -32,21 +32,6 @@ vim.keymap.set('n', '<A-k>', ':m .-2<CR>==')
 vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv")
 
-
--- Disable arrow keys to encourage hjkl usage
-local msg = '<cmd>echo "Use hjkl!"<CR>'
-
-vim.keymap.set('n', '<Up>', msg)
-vim.keymap.set('n', '<Down>', msg)
-vim.keymap.set('n', '<Left>', msg)
-vim.keymap.set('n', '<Right>', msg)
-
-for _, mode in ipairs({ 'i', 'v' }) do
-  for _, key in ipairs({ '<Up>', '<Down>', '<Left>', '<Right>' }) do
-    vim.keymap.set(mode, key, '<Nop>')
-  end
-end
-
 -- Send visual selection to Claude Code in tmux pane
 -- Configure target pane: vim.g.claude_tmux_pane = "{last}" (default)
 -- Examples: "{right}", "{left}", ":.1", "%3"
