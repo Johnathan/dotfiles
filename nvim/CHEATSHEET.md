@@ -28,8 +28,7 @@
 | Find files | `<leader>ff` | telescope |
 | Live grep | `<leader>fg` | telescope |
 | Git status | `<leader>gs` | telescope |
-| Toggle explorer | `<leader>e` | nvim-tree |
-| Focus explorer | `<leader>o` | nvim-tree |
+| Toggle explorer | `<leader>e` | neo-tree |
 | Follow wiki link | `gf` | obsidian.nvim |
 | Find note | `<leader>oo` | obsidian.nvim |
 | Search notes | `<leader>os` | obsidian.nvim |
@@ -488,26 +487,25 @@ gf                  Follow [[wiki link]] under cursor
 
 ---
 
-## nvim-tree
+## neo-tree
 
 ```
-<leader>e           Toggle file explorer
-<leader>o           Toggle focus between explorer and editor
+<leader>e           Toggle file explorer sidebar
 ```
 
-### Inside nvim-tree
+Use the **source selector winbar** at the top to switch between Files and Git views.
+
+### Inside neo-tree
 
 ```
-<CR> or o           Open file/folder
-a                   Create new file
+<CR>                Open file/folder
+a                   Create new file/directory (add / for dir)
 d                   Delete file
 r                   Rename file
 x                   Cut
 c                   Copy
 p                   Paste
-y                   Copy name
-Y                   Copy relative path
-gy                  Copy absolute path
+y                   Copy path to clipboard
 q                   Close
 R                   Refresh
 H                   Toggle hidden files
