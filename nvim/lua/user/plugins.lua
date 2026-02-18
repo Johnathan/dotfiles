@@ -302,21 +302,62 @@ return {
   },
 
   {
-    "nvim-tree/nvim-tree.lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
     config = function()
-      require("nvim-tree").setup({
-        view = { width = 30 },
+      -- Make active source tab stand out
+      vim.api.nvim_set_hl(0, "NeoTreeTabActive", { bold = true, bg = "#3a3a3a", fg = "#ffffff" })
+      vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorActive", { bg = "#3a3a3a", fg = "#3a3a3a" })
+      vim.api.nvim_set_hl(0, "NeoTreeTabInactive", { bg = "#1a1a1a", fg = "#777777" })
+      vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorInactive", { bg = "#1a1a1a", fg = "#1a1a1a" })
+
+      require("neo-tree").setup({
+        sources = { "filesystem", "buffers", "git_status" },
+        source_selector = {
+          winbar = true,
+          content_layout = "center",
+          tabs_layout = "equal",
+          separator = { left = "▏", right = "▕" },
+          show_separator_on_edge = true,
+          sources = {
+            { source = "filesystem", display_name = "󰙅 Files" },
+            { source = "buffers", display_name = "󰔟 Recent" },
+            { source = "git_status", display_name = "󰊢 Git" },
+          },
+        },
+        window = {
+          position = "left",
+          width = 30,
+        },
+        filesystem = {
+          follow_current_file = { enabled = true },
+          use_libuv_file_watcher = true,
+        },
+        default_component_configs = {
+          git_status = {
+            symbols = {
+              added = "✚",
+              modified = "•",
+              deleted = "",
+              renamed = "󰁕",
+              untracked = "★",
+              ignored = "◌",
+              unstaged = "✖",
+              staged = "✓",
+              conflict = "",
+            },
+          },
+        },
       })
-      vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
-      vim.keymap.set("n", "<leader>o", function()
-        local view = require("nvim-tree.view")
-        if view.is_visible() and vim.bo.filetype == "NvimTree" then
-          vim.cmd("wincmd p")
-        else
-          vim.cmd("NvimTreeFocus")
-        end
-      end, { desc = "Toggle focus file explorer" })
+      vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle file explorer" })
+      vim.keymap.set("n", "<leader>1", ":Neotree show filesystem<CR>", { desc = "Explorer: Files" })
+      vim.keymap.set("n", "<leader>2", ":Neotree show buffers<CR>", { desc = "Explorer: Recent" })
+      vim.keymap.set("n", "<leader>3", ":Neotree show git_status<CR>", { desc = "Explorer: Git" })
     end,
   },
 }
