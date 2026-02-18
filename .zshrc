@@ -85,6 +85,19 @@ function fs() {
   fi
 }
 
+# IDE layout: nvim (left 33%) + claude (right 67%) in tmux
+function ide() {
+  if [[ -z "$TMUX" ]]; then
+    echo "Error: ide must be run inside a tmux session."
+    return 1
+  fi
+  local dir="${PWD}"
+  local sock="${TMUX%%,*}"
+  tmux -S "$sock" split-window -h -p 67 -c "$dir" "claude --dangerously-skip-permissions"
+  tmux -S "$sock" send-keys -t 0 "nvim" Enter
+  tmux -S "$sock" select-pane -t 1
+}
+
 # Source machine-specific secrets/config (not in repo)
 [[ -f "$HOME/.secrets" ]] && source "$HOME/.secrets"
 
