@@ -6,7 +6,7 @@ vim.opt.title = true
 vim.opt.wrap = false
 vim.opt.list = true
 vim.opt.listchars = { tab = "▸ ", trail = "·" }
-vim.opt.conceallevel = 2 -- hide markup in markdown (for obsidian.nvim)
+
 
 -- Indentation
 vim.opt.shiftwidth = 4
