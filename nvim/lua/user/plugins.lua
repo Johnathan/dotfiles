@@ -226,35 +226,12 @@ return {
   { "AndrewRadev/splitjoin.vim" },
   { "sickill/vim-pasta" },
 
-  -- Obsidian wiki links support
-  {
-    "obsidian-nvim/obsidian.nvim",
-    version = "*",
-    lazy = true,
-    ft = "markdown",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-    opts = {
-      workspaces = {
-        { name = "notes", path = "~/Obsidian" },
-      },
-      legacy_commands = false,
-    },
-    keys = {
-      { "<leader>on", "<cmd>Obsidian new<cr>", desc = "New note" },
-      { "<leader>oo", "<cmd>Obsidian quick_switch<cr>", desc = "Find note" },
-      { "<leader>os", "<cmd>Obsidian search<cr>", desc = "Search notes" },
-      { "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Backlinks" },
-      { "<leader>ot", "<cmd>Obsidian tags<cr>", desc = "Tags" },
-    },
-  },
 
   {
     "lewis6991/gitsigns.nvim",
     config = function()
       require("gitsigns").setup({
+        linehl = true,
         on_attach = function(bufnr)
           local gs = package.loaded.gitsigns
           local map = function(mode, l, r, desc)
@@ -266,6 +243,10 @@ return {
           map("n", "<leader>hr", gs.reset_hunk, "Reset hunk")
           map("n", "<leader>hp", gs.preview_hunk, "Preview hunk")
           map("n", "<leader>hb", gs.blame_line, "Blame line")
+          map("n", "<leader>hd", gs.diffthis, "Diff against index")
+          map("n", "<leader>hD", function() gs.diffthis("~") end, "Diff against last commit")
+          map("n", "<leader>hi", gs.preview_hunk_inline, "Inline diff")
+          map("n", "<leader>td", gs.toggle_deleted, "Toggle deleted lines")
         end,
       })
     end,
@@ -337,6 +318,11 @@ return {
         filesystem = {
           follow_current_file = { enabled = true },
           use_libuv_file_watcher = true,
+          filtered_items = {
+            visible = true,
+            hide_dotfiles = false,
+            hide_gitignored = true,
+          },
         },
         default_component_configs = {
           git_status = {
