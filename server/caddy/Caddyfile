@@ -1,0 +1,7 @@
+# Global options
+{
+	email admin@example.com
+}
+
+# Import site-specific configurations
+import /etc/caddy/sites/*.caddy
