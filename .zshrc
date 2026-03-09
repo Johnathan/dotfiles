@@ -63,6 +63,7 @@ alias gs='git status -s'
 alias fco='git for-each-ref --sort=-committerdate --format="%(refname:short)" refs/heads/ | fzf --height=20% --reverse --info=inline --prompt="Switch to branch: " | xargs git checkout'
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias vim=nvim
+alias md='glow --center --width 150 -p'
 
 # Clipboard alias (cross-platform)
 if [[ "$OSTYPE" == "darwin"* ]]; then
