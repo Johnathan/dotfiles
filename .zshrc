@@ -64,6 +64,7 @@ alias fco='git for-each-ref --sort=-committerdate --format="%(refname:short)" re
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias vim=nvim
 alias md='glow --center --width 150 -p'
+alias cc='IS_SANDBOX=1 claude --dangerously-skip-permissions'
 
 # Clipboard alias (cross-platform)
 if [[ "$OSTYPE" == "darwin"* ]]; then
