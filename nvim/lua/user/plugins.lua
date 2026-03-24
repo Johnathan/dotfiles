@@ -43,6 +43,21 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         automatic_installation = true,
+        ensure_installed = {
+          "ts_ls",
+          "vue_ls",
+          "html",
+          "cssls",
+          "tailwindcss",
+          "jsonls",
+          "lua_ls",
+          "intelephense",
+          "pyright",
+          "gopls",
+          "rust_analyzer",
+          "bashls",
+          "yamlls",
+        },
       })
     end,
   },
@@ -78,9 +93,23 @@ return {
         end,
       })
 
+      local vue_language_server_path = vim.fn.stdpath("data")
+        .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+
       local servers = {
-        ts_ls = {},
-        volar = {},
+        ts_ls = {
+          init_options = {
+            plugins = {
+              {
+                name = "@vue/typescript-plugin",
+                location = vue_language_server_path,
+                languages = { "vue" },
+              },
+            },
+          },
+          filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+        },
+        vue_ls = {},
         html = {},
         cssls = {},
         tailwindcss = {},
@@ -225,6 +254,38 @@ return {
   { "famiu/bufdelete.nvim" },
   { "AndrewRadev/splitjoin.vim" },
   { "sickill/vim-pasta" },
+
+  -- Minimap
+  {
+    "Isrothy/neominimap.nvim",
+    lazy = false,
+    init = function()
+      vim.g.neominimap = {
+        auto_enable = true,
+        layout = "float",
+        float = {
+          minimap_width = 20,
+        },
+        diagnostic = {
+          enabled = true,
+          severity = vim.diagnostic.severity.WARN,
+        },
+        git = {
+          enabled = true,
+        },
+        search = {
+          enabled = true,
+        },
+        treesitter = {
+          enabled = true,
+        },
+      }
+    end,
+    keys = {
+      { "<leader>mm", "<cmd>Neominimap Toggle<cr>", desc = "Toggle minimap" },
+      { "<leader>mf", "<cmd>Neominimap ToggleFocus<cr>", desc = "Toggle minimap focus" },
+    },
+  },
 
 
   {
