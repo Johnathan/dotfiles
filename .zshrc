@@ -57,6 +57,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 [[ -d "/usr/local/go/bin" ]] && export PATH="$PATH:/usr/local/go/bin"  # Go binary (Linux)
 export PATH="$PATH:$HOME/go/bin"  # User-installed Go programs
 
+# Remove unwanted Prezto aliases
+unalias gws 2>/dev/null
+
 # Aliases
 alias ll='ls -laF'
 alias gs='git status -s'
