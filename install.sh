@@ -151,6 +151,7 @@ install_tmux() {
     fi
 
     link "$DOTFILES/tmux/.tmux.conf" "$HOME/.tmux.conf"
+    link "$DOTFILES/tmux/prefix-by-client.sh" "$HOME/.tmux/prefix-by-client.sh"
 
     echo ""
     echo "✅ tmux configured"

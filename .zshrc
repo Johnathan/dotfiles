@@ -109,8 +109,13 @@ function ide() {
 VISUAL="nvim"
 EDITOR="nvim"
 
+# Disable XON/XOFF flow control so Ctrl-S reaches tmux (prefix over SSH)
+[[ $- == *i* ]] && stty -ixon
+
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # Added by Obsidian
 export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
+# CF CLI completions
+[[ -f "$HOME/.config/cf/completions/_cf.zsh" ]] && source "$HOME/.config/cf/completions/_cf.zsh"
